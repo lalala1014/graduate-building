@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>郑州市建筑劳务监管平台</title>
+    <link rel="stylesheet" href="{% static '/css/vendor/simple-line-icons/css/simple-line-icons.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/css/fontawesome-all.min.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+<body>
+<div class="page-wrapper flex-row align-items-center">
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-5">
+
+                <div class="card p-4">
+                    <div class="col-md-1 offset-md-9">
+                        <a href="#" class="btn btn-link" id="register"> 注册用户</a>
+                        </div>
+                    <div class="card-header text-center text-uppercase h4 font-weight-light">
+                        郑州市建筑劳务监管平台
+                    </div>
+
+
+                    <form  method="post">
+                        <div class="card-body py-5">
+                        <div class="form-group">
+                            <label class="form-control-label">用户名</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">密码</label>
+                            <input type="password" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">验证码</label>
+                            <input type="text" class="form-control"  onclick="if(this.value=='验证码:'){this.value='';}"><br>
+                            <img id="code" src="/building/code/" alt="验证码" onclick="check_code(this)">
+
+                        </div><br>
+                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-primary px-5" id="btn">登录</button>
+                            </div>
+
+                            <div class="col-6">
+                                <a href="#" class="btn btn-link">忘记密码?</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/js/vendor/popper.js/popper.min.js' %}"></script>
+<script src="{% static '/js/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static '/js/carbon.js' %}"></script>
+<script src="{% static '/js/demo.js' %}"></script>
+<script>
+     function check_code(node) {
+        node.src = '/building/code/?search=' + Math.random();
+     }
+      $("#register").on("click",function() {
+          window.location.href="/building/regist/";
+      });
+     $("#btn").on("click",function(){
+            $.ajax({
+                url :"/building/login/",
+                type:"POST",
+				data:{"user":$("#user").val(),"password":$("#pwd").val(),"code":$("#code").val()},
+                dataType : "Json",
+                success:function (isLogin) {
+                    alert(isLogin[isLogin])
+                },
+            });
+        });
+</script>
+</body>
+</html>
