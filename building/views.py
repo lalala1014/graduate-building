@@ -16,7 +16,6 @@ def login(request):
         password = request.POST.get("password")    # 获取用户密码
         code = request.POST.get("code")   # 获取验证码
         manager = authenticate(username=username, password=password)   # 验证用户名和密码，返回用户对象
-        print(manager)
         if manager:   # 判断用户对象是否存在
             if request.session['check_code'] == code:
                 login(request, manager)   # 用户登录
@@ -26,16 +25,21 @@ def login(request):
         else:
             return JsonResponse({"isLogin": "用户名或密码错误"})
     elif request.method == "GET":
-        print("get请求")
         return render(request, "login2.html")
 
 
 # TODO
 # 注册
+@csrf_exempt  # 跨站请求伪造
 def register(request):
-    username = request.POST.GET("username")     # 获取用户名
-    password = request.POST.GET("password")     # 获取密码
-    User.objects.create_user(username=username, password=password)    # 注册用户
+    if request.method == "GET":
+        return render(request, "register.html")
+    elif request.method == "POST":
+        username = request.POST.get("user")     # 获取用户名
+        password = request.POST.get("password")     # 获取密码
+        email = request.POST.get("email")      # 获取电子邮箱
+        User.objects.create_user(username=username, password=password, email=email)    # 注册用户
+        return JsonResponse({"isRegister": "注册成功"})
 
 
 # 在内存中开辟空间用以生成临时的图片

@@ -20,7 +20,7 @@
 
                 <div class="card p-4">
                     <div class="col-md-1 offset-md-9">
-                        <a href="#" class="btn btn-link" id="register"> 注册用户</a>
+                        <a href="/building/register/" class="btn btn-link"> 注册用户</a>
                         </div>
                     <div class="card-header text-center text-uppercase h4 font-weight-light">
                         郑州市建筑劳务监管平台
@@ -28,21 +28,22 @@
 
 
                     <form  method="post">
+                        {% csrf_token %}
                         <div class="card-body py-5">
                         <div class="form-group">
                             <label class="form-control-label">用户名</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="user">
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label">密码</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" id="pwd">
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label">验证码</label>
-                            <input type="text" class="form-control"  onclick="if(this.value=='验证码:'){this.value='';}"><br>
-                            <img id="code" src="/building/code/" alt="验证码" onclick="check_code(this)">
+                            <input id="code" type="text" class="form-control"  onclick="if(this.value == '验证码:'){this.value='';}"><br>
+                            <img  src="/building/code/" alt="验证码" onclick="check_code(this)">
 
                         </div><br>
                         <div class="form-group">
@@ -75,9 +76,6 @@
      function check_code(node) {
         node.src = '/building/code/?search=' + Math.random();
      }
-      $("#register").on("click",function() {
-          window.location.href="/building/regist/";
-      });
      $("#btn").on("click",function(){
             $.ajax({
                 url :"/building/login/",
@@ -85,7 +83,7 @@
 				data:{"user":$("#user").val(),"password":$("#pwd").val(),"code":$("#code").val()},
                 dataType : "Json",
                 success:function (isLogin) {
-                    alert(isLogin[isLogin])
+                    alert(isLogin["isLogin"])
                 },
             });
         });
