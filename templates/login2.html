@@ -83,7 +83,13 @@
 				data:{"user":$("#user").val(),"password":$("#pwd").val(),"code":$("#code").val()},
                 dataType : "Json",
                 success:function (isLogin) {
-                    alert(isLogin["isLogin"])
+                    if (isLogin["isLogin"]==true)
+                    {
+                        window.location.href="/building/index/";
+                    }
+                    else {
+                        alert(isLogin["isLogin"]);
+                    }
                 },
             });
         });

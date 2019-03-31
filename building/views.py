@@ -19,7 +19,7 @@ def login(request):
         if manager:   # 判断用户对象是否存在
             if request.session['check_code'] == code:
                 login(request, manager)   # 用户登录
-                return JsonResponse({"isLogin": "登录成功"})
+                return JsonResponse({"isLogin": True})
             else:
                 return JsonResponse({"isLogin": "验证码错误"})
         else:
@@ -40,6 +40,22 @@ def register(request):
         email = request.POST.get("email")      # 获取电子邮箱
         User.objects.create_user(username=username, password=password, email=email)    # 注册用户
         return JsonResponse({"isRegister": "注册成功"})
+
+
+# 首页
+def index(request):
+    if request.method == "GET":
+        return render(request, "index.html")
+    elif request.method == "POST":
+        return render(request, "index.html")
+
+
+# 企业信息管理
+def company_manage(request):
+    if request.method == "GET":
+        return render(request, "company_information.html")
+    elif request.method == "POST":
+        return render(request, "company_information.html")
 
 
 # 在内存中开辟空间用以生成临时的图片
