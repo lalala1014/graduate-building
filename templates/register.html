@@ -60,12 +60,19 @@
 <script src="{% static '/js/carbon.js' %}"></script>
 <script src="{% static '/js/demo.js' %}"></script>
 <script>
-    var a=$("#email").val().test("@");
-  //  var at=document.getElementById("email").value.indexOf("@");
+
     $("#btn").on("click",function(){
-        if(at==false)
-        {
-            alert("不是有效的电子邮件地址。");
+        //获取文本元素的值
+        var email = document.getElementById("email");
+        //邮件格式
+        reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+        //非空验证
+        if (email.value == "") {
+            alert("请输入电子邮件");
+        }
+        //格式验证
+        else if (!reg.test(email.value)) {
+            alert("邮件格式不正确，请重新输入!");
         }
         else {
             if(($("#c_pwd").val())==($("#pwd").val()))

@@ -25,7 +25,7 @@ def login(request):
         else:
             return JsonResponse({"isLogin": "用户名或密码错误"})
     elif request.method == "GET":
-        return render(request, "login2.html")
+        return render(request, "login.html")
 
 
 # TODO
@@ -38,10 +38,17 @@ def register(request):
         username = request.POST.get("user")     # 获取用户名
         password = request.POST.get("password")     # 获取密码
         email = request.POST.get("email")      # 获取电子邮箱
-        User.objects.create_user(username=username, password=password, email=email)    # 注册用户
+        users = User.objects.all()      # 所有的用户
+        for i in users:
+            if str(i) == username:
+                print("用户已存在")
+            else:
+                User.objects.create_user(username=username, password=password, email=email)  # 注册用户
+
         return JsonResponse({"isRegister": "注册成功"})
 
 
+# TODO
 # 首页
 def index(request):
     if request.method == "GET":
@@ -50,12 +57,49 @@ def index(request):
         return render(request, "index.html")
 
 
+# TODO
 # 企业信息管理
 def company_manage(request):
     if request.method == "GET":
         return render(request, "company_information.html")
     elif request.method == "POST":
         return render(request, "company_information.html")
+
+
+# TODO
+# 项目信息管理
+def project_manage(request):
+    if request.method == "GET":
+        return render(request, "project_information.html")
+    elif request.method == "POST":
+        return render(request, "project_information.html")
+
+
+# TODO
+# 个人资料设置
+def settings(request):
+    if request.method == "GET":
+        return render(request, "settings.html")
+    elif request.method == "POST":
+        return render(request, "settings.html")
+
+
+# TODO
+# 工资核对
+def salary_check(request):
+    if request.method == "GET":
+        return render(request, "salary_check.html")
+    elif request.method == "POST":
+        return render(request, "salary_check.html")
+
+
+# TODO
+# 企业审核
+def business_check(request):
+    if request.method == "GET":
+        return render(request, "business_check.html")
+    elif request.method == "POST":
+        return render(request, "business_check.html")
 
 
 # 在内存中开辟空间用以生成临时的图片

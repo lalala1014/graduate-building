@@ -83,7 +83,7 @@
                     <li class="nav-title">Navigation</li>
 
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link active">
+                        <a href="index.html" class="nav-link">
                             <i class="icon icon-speedometer"></i> 首页
                         </a>
                     </li>
@@ -95,7 +95,7 @@
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="/building/company/manager/" class="nav-link">
+                                <a href="/building/company/manager/" class="nav-link active">
                                     <i class="icon icon-target"></i> 企业基本信息
                                 </a>
                             </li>
@@ -252,6 +252,7 @@
         </div>
 
        <div class="content">
+           <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-3">查询</button>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -286,6 +287,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">查询企业资料</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">企业名称</label>
+                    <input class=" col-md-6 ">
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">企业编号</label>
+                    <input class=" col-md-6 ">
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">企业管理人</label>
+                    <input class=" col-md-6 ">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">查询</button>
             </div>
         </div>
     </div>
