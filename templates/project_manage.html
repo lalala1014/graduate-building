@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="{% static '/css/vendor/simple-line-icons/css/simple-line-icons.css'  %}">
     <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/css/fontawesome-all.min.css'  %}">
     <link rel="stylesheet" href="{% static '/css/styles.css' %}">
-    <style>
-        tbody>tr>td {
-            text-align: center;
-        }
-    </style>
 </head>
 <body class="sidebar-fixed header-fixed">
 <div class="page-wrapper">
@@ -88,7 +83,7 @@
                     <li class="nav-title">Navigation</li>
 
                     <li class="nav-item">
-                        <a href="/building/index/" class="nav-link">
+                        <a href="index.html" class="nav-link">
                             <i class="icon icon-speedometer"></i> 首页
                         </a>
                     </li>
@@ -101,13 +96,13 @@
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
                                 <a href="/building/company/manager/" class="nav-link">
-                                    <i class="icon icon-target"></i> 企业信息
+                                    <i class="icon icon-target"></i> 企业基本信息
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="layouts-fixed-sidebar.html" class="nav-link">
-                                    <i class="icon icon-target"></i> 企业登记
+                                    <i class="icon icon-target"></i> Fixed Sidebar
                                 </a>
                             </li>
 
@@ -132,7 +127,7 @@
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="/building/project/manager/" class="nav-link">
+                                <a href="alerts.html" class="nav-link active">
                                     <i class="icon icon-energy"></i> 项目信息
                                 </a>
                             </li>
@@ -186,88 +181,103 @@
                                     <i class="icon icon-graph"></i> 劳务人员考勤
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/building/salary/check/" class="nav-link active">
-                                    <i class="icon icon-graph"></i> 劳务工资核对
-                                </a>
-                            </li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="forms.html" class="nav-link">
+                            <i class="icon icon-puzzle"></i> Forms
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="tables.html" class="nav-link">
+                            <i class="icon icon-grid"></i> Tables
+                        </a>
                     </li>
 
                     <li class="nav-title">More</li>
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-umbrella"></i> 设置 <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-umbrella"></i> Pages <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="/building/settings/" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 账户设置
+                                <a href="blank.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> Blank Page
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="login.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 注销
+                                    <i class="icon icon-umbrella"></i> Login
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="register.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 通知
+                                    <i class="icon icon-umbrella"></i> Register
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="invoice.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 消息
+                                    <i class="icon icon-umbrella"></i> Invoice
                                 </a>
                             </li>
-                            <br>
+
+                            <li class="nav-item">
+                                <a href="404.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 404
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="500.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 500
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="settings.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> Settings
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </nav>
         </div>
 
-        <div class="content">
+       <div class="content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-light">
-                            工资统计信息
+                            工程信息
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>员工ID</th>
-                                        <th>员工姓名</th>
-                                        <th>参与项目</th>
-                                        <th>考勤天数</th>
-                                        <th>劳务公司</th>
-                                        <th>工资结算</th>
-                                        <th>劳务人员核对</th>
-                                        <th>建筑企业核对</th>
-                                        <th>建筑单位核对</th>
-                                        <th>市建委核对</th>
+                                        <th>工程编号</th>
+                                        <th>工程名称</th>
+                                        <th>工程负责人</th>
+                                        <th>建筑单位</th>
+                                        <th>建筑企业</th>
+                                        <th>工程进度</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td class="text-nowrap">Samsung Galaxy S8</td>
+                                        <td class="text-nowrap"><a href="/building/project/information/">三星</a></td>
                                         <td>31,589</td>
                                         <td>$800</td>
-                                        <td>31,589</td>
-                                        <td>31,589</td>
-                                        <td>31,589</td>
-                                        <td>31,589</td>
-                                        <td>31,589</td>
-                                        <td><button class="btn btn-success btn-sm" onclick="btn(this)">确认核对</button></td>
+                                        <td>5%</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -285,10 +295,5 @@
 <script src="{% static '/js/vendor/chart.js/chart.min.js' %}"></script>
 <script src="{% static '/js/carbon.js' %}"></script>
 <script src="{% static '/js/demo.js' %}"></script>
-<script>
-    function btn(e) {
-        (e.parentNode).innerHTML = "已审核";
-    }
-</script>
 </body>
 </html>

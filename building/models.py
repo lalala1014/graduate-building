@@ -8,10 +8,16 @@ class Business(models.Model):
     id = models.AutoField(primary_key=True)
     business_id = models.CharField(verbose_name="企业编号", max_length=22, unique=True)
     business_name = models.CharField(max_length=40, null=False, verbose_name="企业名称")
-    manage_name = models.CharField(max_length=10, null=False, verbose_name="企业管理者")
     assess = models.CharField(max_length=10, default="优", verbose_name="企业信用评价")
     ensure_salary = models.FloatField(default=0, verbose_name="工资保障金余额")
-    business_people_number = models.IntegerField(verbose_name="企业人数")
+    Qualification_num = models.CharField(max_length=20, verbose_name="资质证号")
+    Qualification_class = models.CharField(max_length=15, verbose_name="资质类别")
+    safety_production_num = models.CharField(max_length=20, verbose_name="安全生产许可证号")
+    approval_date = models.DateTimeField(verbose_name="批准日期", auto_now_add=True)
+    labour_capital = models.CharField(max_length=10, verbose_name="劳资员")
+    OA = models.CharField(max_length=30, verbose_name="办公地址")
+    RA = models.CharField(max_length=30, verbose_name="注册地址")
+    business_num = models.CharField(max_length=30, verbose_name="营业执照号")
 
 
 # 项目类

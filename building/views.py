@@ -59,20 +59,20 @@ def index(request):
 
 # TODO
 # 企业信息管理
-def company_manage(request):
+def business_manage(request):
     if request.method == "GET":
-        return render(request, "company_information.html")
+        return render(request, "business_manage.html")
     elif request.method == "POST":
-        return render(request, "company_information.html")
+        return render(request, "business_manage.html")
 
 
 # TODO
 # 项目信息管理
 def project_manage(request):
     if request.method == "GET":
-        return render(request, "project_information.html")
+        return render(request, "project_manage.html")
     elif request.method == "POST":
-        return render(request, "project_information.html")
+        return render(request, "project_manage.html")
 
 
 # TODO
@@ -94,12 +94,21 @@ def salary_check(request):
 
 
 # TODO
-# 企业审核
-def business_check(request):
+# 企业详细信息查看
+def business_information(request):
     if request.method == "GET":
-        return render(request, "business_check.html")
+        return render(request, "business_information.html")
     elif request.method == "POST":
-        return render(request, "business_check.html")
+        return render(request, "business_information.html")
+
+
+# TODO
+# 项目详细信息查看
+def project_information(request):
+    if request.method == "GET":
+        return render(request, "project_information.html")
+    elif request.method == "POST":
+        return render(request, "project_information.html")
 
 
 # 在内存中开辟空间用以生成临时的图片
