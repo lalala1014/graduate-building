@@ -18,11 +18,10 @@
         </a>
 
         <a class="navbar-brand" href="#">
-            <img src="./imgs/logo.png" alt="logo">
+            <h3>郑州市建筑劳务监管平台</h3>
         </a>
-
         <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
-            <i class="fa fa-bars"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i>
         </a>
 
         <ul class="navbar-nav ml-auto">
@@ -42,33 +41,26 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="./imgs/avatar-1.png" class="avatar avatar-sm" alt="logo">
-                    <span class="small ml-1 d-md-down-none">John Smith</span>
+                    <img src="{% static '/images/avatar-1.png' %}" class="avatar avatar-sm" alt="logo">
+                    <span class="small ml-1 d-md-down-none">管理员</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header">Account</div>
+                    <div class="dropdown-header">账户</div>
 
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-user"></i> Profile
+                    <a href="/building/settings/" class="dropdown-item">
+                        <i class="fa fa-user"></i> 账户设置
                     </a>
 
                     <a href="#" class="dropdown-item">
-                        <i class="fa fa-envelope"></i> Messages
+                        <i class="fa fa-envelope"></i> 消息
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-bell"></i> 通知
                     </a>
 
-                    <div class="dropdown-header">Settings</div>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-bell"></i> Notifications
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-wrench"></i> Settings
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-lock"></i> Logout
+                    <a href="/building/logout/" class="dropdown-item">
+                        <i class="fa fa-lock"></i> 注销
                     </a>
                 </div>
             </li>
@@ -81,38 +73,20 @@
                     <li class="nav-title">Navigation</li>
 
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">
-                            <i class="icon icon-speedometer"></i> Dashboard
+                        <a href="/building/index/" class="nav-link">
+                            <i class="icon icon-speedometer"></i> 首页
                         </a>
                     </li>
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-target"></i> Layouts <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-target"></i> 企业管理 <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="layouts-normal.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Normal
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-fixed-sidebar.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Fixed Sidebar
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-fixed-header.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Fixed Header
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-hidden-sidebar.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Hidden Sidebar
+                                <a href="/building/business/manager/" class="nav-link">
+                                    <i class="icon icon-target"></i> 企业信息
                                 </a>
                             </li>
                         </ul>
@@ -120,49 +94,13 @@
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-energy"></i> UI Kits <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-energy"></i> 项目管理 <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="alerts.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Alerts
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="buttons.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Buttons
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="cards.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Cards
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="modals.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Modals
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="tabs.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Tabs
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="progress-bars.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Progress Bars
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="widgets.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Widgets
+                                <a href="/building/project/manager/" class="nav-link">
+                                    <i class="icon icon-energy"></i> 项目信息
                                 </a>
                             </li>
                         </ul>
@@ -170,79 +108,55 @@
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-graph"></i> Charts <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-graph"></i> 劳务管理 <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
                                 <a href="chartjs.html" class="nav-link">
-                                    <i class="icon icon-graph"></i> Chart.js
+                                    <i class="icon icon-graph"></i> 劳务人员考勤
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/building/salary/check/" class="nav-link">
+                                    <i class="icon icon-graph"></i> 劳务工资核对
                                 </a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="forms.html" class="nav-link">
-                            <i class="icon icon-puzzle"></i> Forms
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="tables.html" class="nav-link">
-                            <i class="icon icon-grid"></i> Tables
-                        </a>
                     </li>
 
                     <li class="nav-title">More</li>
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-umbrella"></i> Pages <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-umbrella"></i> 设置 <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="blank.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Blank Page
+                                <a href="/building/settings/" class="nav-link active">
+                                    <i class="icon icon-umbrella"></i> 账户设置
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="login.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Login
+                                    <i class="icon icon-umbrella"></i> 注销
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="register.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Register
+                                    <i class="icon icon-umbrella"></i> 通知
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="invoice.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Invoice
+                                    <i class="icon icon-umbrella"></i> 消息
                                 </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a href="404.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 404
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="500.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 500
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="settings.html" class="nav-link active">
-                                    <i class="icon icon-umbrella"></i> Settings
-                                </a>
-                            </li>
+                            <br>
                         </ul>
                     </li>
                 </ul>

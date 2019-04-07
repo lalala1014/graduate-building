@@ -126,3 +126,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
+# 设置默认登录页面
+LOGIN_URL = '/building/login/'

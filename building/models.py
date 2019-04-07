@@ -25,6 +25,9 @@ class Project(models.Model):
     id = models.AutoField(primary_key=True)
     pro_id = models.CharField(verbose_name="项目编号", unique=True, max_length=22)
     project_name = models.CharField(max_length=50, null=False, verbose_name="项目名称")
+    project_address = models.CharField(max_length=30, verbose_name="工程地点")
+    project_region = models.CharField(max_length=20, verbose_name="所属区域")
+    project_area = models.FloatField(verbose_name="建筑面积")
     project_plan = models.CharField(max_length=10, verbose_name="工程进度", default="审批未开工")  # 工程进度有：审批未开工、在建、停工、竣工
     project_company = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name="建筑企业")
     project_unit = models.CharField(max_length=30, verbose_name="建筑单位")

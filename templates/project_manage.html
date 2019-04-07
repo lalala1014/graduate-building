@@ -43,31 +43,24 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{% static '/images/avatar-1.png' %}" class="avatar avatar-sm" alt="logo">
-                    <span class="small ml-1 d-md-down-none">John Smith</span>
+                    <span class="small ml-1 d-md-down-none">管理员</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header">Account</div>
+                    <div class="dropdown-header">账户</div>
 
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-user"></i> Profile
+                    <a href="/building/settings/" class="dropdown-item">
+                        <i class="fa fa-user"></i> 账户设置
                     </a>
 
                     <a href="#" class="dropdown-item">
-                        <i class="fa fa-envelope"></i> Messages
+                        <i class="fa fa-envelope"></i> 消息
                     </a>
-
-                    <div class="dropdown-header">Settings</div>
-
                     <a href="#" class="dropdown-item">
-                        <i class="fa fa-bell"></i> Notifications
+                        <i class="fa fa-bell"></i> 通知
                     </a>
 
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-wrench"></i> Settings
-                    </a>
-
-                    <a href="/building/login/" class="dropdown-item">
+                    <a href="/building/logout/" class="dropdown-item">
                         <i class="fa fa-lock"></i> 注销
                     </a>
                 </div>
@@ -83,7 +76,7 @@
                     <li class="nav-title">Navigation</li>
 
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">
+                        <a href="/building/index/" class="nav-link">
                             <i class="icon icon-speedometer"></i> 首页
                         </a>
                     </li>
@@ -95,26 +88,8 @@
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="/building/company/manager/" class="nav-link">
-                                    <i class="icon icon-target"></i> 企业基本信息
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-fixed-sidebar.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Fixed Sidebar
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-fixed-header.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Fixed Header
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="layouts-hidden-sidebar.html" class="nav-link">
-                                    <i class="icon icon-target"></i> Hidden Sidebar
+                                <a href="/building/business/manager/" class="nav-link">
+                                    <i class="icon icon-target"></i> 企业信息
                                 </a>
                             </li>
                         </ul>
@@ -127,44 +102,8 @@
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="alerts.html" class="nav-link active">
+                                <a href="/building/project/manager/" class="nav-link active">
                                     <i class="icon icon-energy"></i> 项目信息
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="buttons.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Buttons
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="cards.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Cards
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="modals.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Modals
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="tabs.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Tabs
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="progress-bars.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Progress Bars
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="widgets.html" class="nav-link">
-                                    <i class="icon icon-energy"></i> Widgets
                                 </a>
                             </li>
                         </ul>
@@ -181,70 +120,46 @@
                                     <i class="icon icon-graph"></i> 劳务人员考勤
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/building/salary/check/" class="nav-link">
+                                    <i class="icon icon-graph"></i> 劳务工资核对
+                                </a>
+                            </li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="forms.html" class="nav-link">
-                            <i class="icon icon-puzzle"></i> Forms
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="tables.html" class="nav-link">
-                            <i class="icon icon-grid"></i> Tables
-                        </a>
                     </li>
 
                     <li class="nav-title">More</li>
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-umbrella"></i> Pages <i class="fa fa-caret-left"></i>
+                            <i class="icon icon-umbrella"></i> 设置 <i class="fa fa-caret-left"></i>
                         </a>
 
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a href="blank.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Blank Page
+                                <a href="/building/settings/" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 账户设置
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="login.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Login
+                                    <i class="icon icon-umbrella"></i> 注销
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="register.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Register
+                                    <i class="icon icon-umbrella"></i> 通知
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="invoice.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Invoice
+                                    <i class="icon icon-umbrella"></i> 消息
                                 </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a href="404.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 404
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="500.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 500
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="settings.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> Settings
-                                </a>
-                            </li>
+                            <br>
                         </ul>
                     </li>
                 </ul>
@@ -252,6 +167,8 @@
         </div>
 
        <div class="content">
+           <button class="btn btn btn-info" data-toggle="modal" data-target="#modal-3"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
+           <br> <br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -285,6 +202,74 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">查询项目信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">项目名称</label>
+                    <input id="normal-input" class="form-control col-md-6" value="Input value">
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">项目编号</label>
+                    <input id="normal-input" class="form-control col-md-6" value="Input value">
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">工程进度</label>
+                    <select id="single-select" class="form-control col-md-6">
+                        <option>审批未开工</option>
+                        <option>在建</option>
+                        <option>停工</option>
+                        <option>竣工</option>
+                    </select>
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">所属区域</label>
+                    <select id="single-select" class="form-control col-md-6">
+                        <option>二七区</option>
+                        <option>中原区</option>
+                        <option>金水区</option>
+                        <option>新郑市</option>
+                        <option>惠济区</option>
+                        <option>管城回族区</option>
+                        <option>上街区</option>
+                        <option>登封市</option>
+                        <option>新密市</option>
+                        <option>巩义市</option>
+                        <option>中牟县</option>
+                        <option>高新区</option>
+                        <option>荥阳市</option>
+                    </select>
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">建筑单位</label>
+                    <input id="normal-input" class="form-control col-md-6" value="Input value">
+                </div>
+                <br>
+                <div class="row">
+                    <label class=" col-md-5" style="text-align: center">建筑企业</label>
+                    <input id="normal-input" class="form-control col-md-6" value="Input value">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
             </div>
         </div>
     </div>

@@ -1,16 +1,16 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from io import BytesIO
 from . import utils
 from django.views.decorators.csrf import csrf_exempt
 
 
-# TODO
 # 登录
 @csrf_exempt  # 跨站请求伪造
-def login(request):
+def login_user(request):
     if request.method == "POST":
         username = request.POST.get("user")    # 获取用户名
         password = request.POST.get("password")    # 获取用户密码
@@ -48,8 +48,16 @@ def register(request):
         return JsonResponse({"isRegister": "注册成功"})
 
 
+# 注销
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect("/building/login/")
+
+
 # TODO
 # 首页
+@login_required
 def index(request):
     if request.method == "GET":
         return render(request, "index.html")
@@ -59,6 +67,7 @@ def index(request):
 
 # TODO
 # 企业信息管理
+@login_required
 def business_manage(request):
     if request.method == "GET":
         return render(request, "business_manage.html")
@@ -68,6 +77,7 @@ def business_manage(request):
 
 # TODO
 # 项目信息管理
+@login_required
 def project_manage(request):
     if request.method == "GET":
         return render(request, "project_manage.html")
@@ -77,6 +87,7 @@ def project_manage(request):
 
 # TODO
 # 个人资料设置
+@login_required
 def settings(request):
     if request.method == "GET":
         return render(request, "settings.html")
@@ -86,6 +97,7 @@ def settings(request):
 
 # TODO
 # 工资核对
+@login_required
 def salary_check(request):
     if request.method == "GET":
         return render(request, "salary_check.html")
@@ -95,6 +107,7 @@ def salary_check(request):
 
 # TODO
 # 企业详细信息查看
+@login_required
 def business_information(request):
     if request.method == "GET":
         return render(request, "business_information.html")
@@ -104,6 +117,7 @@ def business_information(request):
 
 # TODO
 # 项目详细信息查看
+@login_required
 def project_information(request):
     if request.method == "GET":
         return render(request, "project_information.html")
