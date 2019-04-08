@@ -23,9 +23,11 @@ urlpatterns = [
     url(r'logout/$', views.logout_user),      # 注销
     url(r'^index/$', views.index),      # 首页
     url(r'^business/manager/$', views.business_manage),     # 企业信息管理
+    url(r'^business/information/$', views.business_information),  # 企业详细信息查看
+    url(r'^business/count/$', views.business_count),    # 企业统计
     url(r'^project/manager/$', views.project_manage),     # 项目信息管理
+    url(r'^project/information/$', views.project_information),  # 工程详细信息查看
     url(r'settings/$', views.settings),      # 个人资料设置
     url(r'^salary/check/$', views.salary_check),     # 员工工资核对
-    url(r'^business/information/$', views.business_information),      # 企业详细信息查看
-    url(r'^project/information/$', views.project_information),      # 工程详细信息查看
+
 ]

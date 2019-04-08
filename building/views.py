@@ -8,6 +8,8 @@ from . import utils
 from django.views.decorators.csrf import csrf_exempt
 
 
+# ********************************************** 账 户 ******************************************************
+
 # 登录
 @csrf_exempt  # 跨站请求伪造
 def login_user(request):
@@ -56,36 +58,6 @@ def logout_user(request):
 
 
 # TODO
-# 首页
-@login_required
-def index(request):
-    if request.method == "GET":
-        return render(request, "index.html")
-    elif request.method == "POST":
-        return render(request, "index.html")
-
-
-# TODO
-# 企业信息管理
-@login_required
-def business_manage(request):
-    if request.method == "GET":
-        return render(request, "business_manage.html")
-    elif request.method == "POST":
-        return render(request, "business_manage.html")
-
-
-# TODO
-# 项目信息管理
-@login_required
-def project_manage(request):
-    if request.method == "GET":
-        return render(request, "project_manage.html")
-    elif request.method == "POST":
-        return render(request, "project_manage.html")
-
-
-# TODO
 # 个人资料设置
 @login_required
 def settings(request):
@@ -96,13 +68,25 @@ def settings(request):
 
 
 # TODO
-# 工资核对
+# 首页
 @login_required
-def salary_check(request):
+def index(request):
     if request.method == "GET":
-        return render(request, "salary_check.html")
+        return render(request, "index.html")
     elif request.method == "POST":
-        return render(request, "salary_check.html")
+        return render(request, "index.html")
+
+
+# ********************************************** 企 业 ******************************************************
+
+# TODO
+# 企业信息管理
+@login_required
+def business_manage(request):
+    if request.method == "GET":
+        return render(request, "business_manage.html")
+    elif request.method == "POST":
+        return render(request, "business_manage.html")
 
 
 # TODO
@@ -116,6 +100,28 @@ def business_information(request):
 
 
 # TODO
+# 企业统计
+@login_required
+def business_count(request):
+    if request.method == "GET":
+        return render(request, "business_count.html")
+    elif request.method == "POST":
+        return render(request, "business_count.html")
+
+
+# ********************************************** 项 目 ******************************************************
+
+# TODO
+# 项目信息管理
+@login_required
+def project_manage(request):
+    if request.method == "GET":
+        return render(request, "project_manage.html")
+    elif request.method == "POST":
+        return render(request, "project_manage.html")
+
+
+# TODO
 # 项目详细信息查看
 @login_required
 def project_information(request):
@@ -123,6 +129,18 @@ def project_information(request):
         return render(request, "project_information.html")
     elif request.method == "POST":
         return render(request, "project_information.html")
+
+
+# ********************************************** 工 资 ******************************************************
+
+# TODO
+# 工资核对
+@login_required
+def salary_check(request):
+    if request.method == "GET":
+        return render(request, "salary_check.html")
+    elif request.method == "POST":
+        return render(request, "salary_check.html")
 
 
 # 在内存中开辟空间用以生成临时的图片

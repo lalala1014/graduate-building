@@ -40,7 +40,6 @@ class Services(models.Model):
     ser_id = models.CharField(verbose_name="劳务公司号", unique=True, max_length=20)
     ser_name = models.CharField(verbose_name="劳务公司名称", max_length=40, null=False)
     ser_manager = models.CharField(verbose_name="劳务公司管理人", max_length=15)
-    ser_number = models.IntegerField(verbose_name="劳务公司人数")
 
 
 # 劳务人员类
@@ -62,5 +61,12 @@ class Check(models.Model):
     staff = models.ForeignKey(Staffs, on_delete=models.CASCADE, verbose_name="员工号")
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name="参与项目")
     time = models.DateTimeField(auto_now=True, verbose_name="考勤时间")
+
+
+# 工资表
+class Salary(models.Model):
+    id = models.AutoField(primary_key=True)
+    staff = models.ForeignKey(Staffs, on_delete=models.CASCADE, verbose_name="员工号")
+
 
 
