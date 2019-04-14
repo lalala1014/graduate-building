@@ -187,17 +187,22 @@
                                         <th>企业信用等级</th>
                                         <th>资质类别</th>
                                         <th>工资保障金余额</th>
+                                        <th>办公地址</th>
                                     </tr>
                                     </thead>
+                                    {% for i in business %}
                                     <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td class="text-nowrap" ><a href="/building/business/information/">Samsung Galaxy S8</a></td>
-                                        <td>31,589</td>
-                                        <td>$800</td>
-                                        <td>5%</td>
+                                        <td>{{ i.business_id }}</td>
+                                        <td class="text-nowrap" ><a href="/building/business/information/{{ i.business_id }}/">{{ i.business_name }}</a></td>
+                                        <td>{{ i.corporate_representative }}</td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
+                                        <td>{{ i.Qualification_class }}</td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.ensure_salary }}</td>
+                                        <td>{{ i.OA }}</td>
                                     </tr>
                                     </tbody>
+                                    {% endfor %}
                                 </table>
                             </div>
                         </div>

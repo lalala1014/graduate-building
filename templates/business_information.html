@@ -178,19 +178,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">企业名称</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_name }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">企业编号</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_id }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">企业管理者</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.corporate_representative }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -199,19 +199,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">注册地址</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.RA }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">办公地址</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.OA }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">资质类别</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.Qualification_class }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -220,19 +220,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">企业信用等级</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.assess }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">工资保障金余额</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.ensure_salary }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">营业执照号</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_num }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -240,14 +240,8 @@
                                 <div class="row mt-4">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="disabled-input" class="form-control-label">有效日期</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">法人代表</label>
-                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ business.corporate_representative}}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -261,7 +255,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-danger">返回上一步</button>
+                <a class="btn btn-danger" href="/building/business/manager/">返回上一步</a>
             </div>
         </div>
     </div>

@@ -188,15 +188,18 @@
                                         <th>工程进度</th>
                                     </tr>
                                     </thead>
+                                    {% for i in Project %}
                                     <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td class="text-nowrap"><a href="/building/project/information/">三星</a></td>
-                                        <td>31,589</td>
-                                        <td>$800</td>
-                                        <td>5%</td>
+                                        <td>{{ i.pro_id }}</td>
+                                        <td class="text-nowrap"><a href="/building/project/information/{{ i.pro_id }}/">{{ i.project_name }}</a></td>
+                                        <td>{{ i.project_manager }}</td>
+                                        <td>{{ i.project_unit }}</td>
+                                        <td>{{ i.project_company.business_name }}</td>
+                                        <td>{{ i.project_plan }}</td>
                                     </tr>
                                     </tbody>
+                                    {% endfor %}
                                 </table>
                             </div>
                         </div>

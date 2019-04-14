@@ -178,19 +178,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">工程名称</label>
-                                            <input id="disabled-input" class="form-control" disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_name }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">工程编号</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.pro_id }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">工程地点</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_address }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -199,19 +199,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">所属区域</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_region }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">施工许可证号</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">建筑面积</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_area }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -263,10 +263,15 @@
                                     </div>
                                 </div>
                                 <div class="progress mt-3 "style="height: 40px">
+                                    {% if project.project_plan == "审批未开工" %}
                                     <div class="progress-bar bg-success progress-bar-striped"  role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">审批未开工</div>
-                                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">在建</div>
-                                    <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">停工</div>
-                                    <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">竣工</div>
+                                    {% elif project.project_plan == "在建" %}
+                                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">在建</div>
+                                    {% elif project.project_plan == "停工" %}
+                                    <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">停工</div>
+                                    {% else %}
+                                    <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">竣工</div>
+                                    {% endif %}
                                 </div>
                                 <br>
                                 <hr>
@@ -274,7 +279,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">建设单位</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_unit }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -294,7 +299,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="disabled-input" class="form-control-label">施工总承包单位</label>
-                                            <input id="disabled-input" class="form-control"  disabled>
+                                            <input id="disabled-input" class="form-control" value="{{ project.project_company.business_name }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -335,7 +340,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-danger">返回上一步</button>
+                <a class="btn btn-danger" href="/building/project/manager/">返回上一步</a>
             </div>
         </div>
     </div>

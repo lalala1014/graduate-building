@@ -3,6 +3,7 @@ from django.http import HttpResponse,JsonResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from building.models import *
 from io import BytesIO
 from . import utils
 from django.views.decorators.csrf import csrf_exempt
@@ -43,11 +44,10 @@ def register(request):
         users = User.objects.all()      # 所有的用户
         for i in users:
             if str(i) == username:
-                print("用户已存在")
-            else:
-                User.objects.create_user(username=username, password=password, email=email)  # 注册用户
-
-        return JsonResponse({"isRegister": "注册成功"})
+                return JsonResponse({"isRegister": "用户已存在"})
+        else:
+            User.objects.create_user(username=username, password=password, email=email)  # 注册用户
+            return JsonResponse({"isRegister": "注册成功"})
 
 
 # 注销
@@ -84,7 +84,8 @@ def index(request):
 @login_required
 def business_manage(request):
     if request.method == "GET":
-        return render(request, "business_manage.html")
+        business = Business.objects.all()  # 所有企业
+        return render(request, "business_manage.html", {"business": business})
     elif request.method == "POST":
         return render(request, "business_manage.html")
 
@@ -92,9 +93,14 @@ def business_manage(request):
 # TODO
 # 企业详细信息查看
 @login_required
-def business_information(request):
+def business_information(request, business_id):
     if request.method == "GET":
-        return render(request, "business_information.html")
+        bus = ""
+        business = Business.objects.all()  # 所有企业
+        for i in business:
+            if business_id == i.business_id:
+                bus = i
+        return render(request, "business_information.html", {"business": bus})
     elif request.method == "POST":
         return render(request, "business_information.html")
 
@@ -116,7 +122,8 @@ def business_count(request):
 @login_required
 def project_manage(request):
     if request.method == "GET":
-        return render(request, "project_manage.html")
+        project = Project.objects.all()   # 所有项目
+        return render(request, "project_manage.html", {"Project": project})
     elif request.method == "POST":
         return render(request, "project_manage.html")
 
@@ -124,9 +131,14 @@ def project_manage(request):
 # TODO
 # 项目详细信息查看
 @login_required
-def project_information(request):
+def project_information(request, project_id):
     if request.method == "GET":
-        return render(request, "project_information.html")
+        pro = ""
+        project = Project.objects.all()    # 所有项目
+        for i in project:
+            if project_id == i.pro_id:
+                pro = i
+        return render(request, "project_information.html", {"project": pro})
     elif request.method == "POST":
         return render(request, "project_information.html")
 
