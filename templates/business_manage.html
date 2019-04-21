@@ -190,7 +190,7 @@
                                         <th>办公地址</th>
                                     </tr>
                                     </thead>
-                                    {% for i in business %}
+                                    {% for i in page %}
                                     <tbody>
                                     <tr>
                                         <td>{{ i.business_id }}</td>
@@ -225,22 +225,22 @@
             <div class="modal-body p-5" style="background-color: white">
                 <div class="row">
                     <label class="col-md-4" style="text-align: center">企业名称</label>
-                    <input id="normal-input" class="form-control col-md-6" >
+                    <input id="business_name" class="form-control col-md-6" value="&nbsp;">
                 </div>
                 <br>
                 <div class="row">
                     <label class=" col-md-4" style="text-align: center">企业编号</label>
-                    <input id="normal-input" class="form-control col-md-6" >
+                    <input id="business_id" class="form-control col-md-6" >
                 </div>
                 <br>
                 <div class="row">
                     <label class=" col-md-4" style="text-align: center;margin-bottom: 0px">法人代表</label>
-                    <input id="normal-input" class="form-control col-md-6" >
+                    <input id="corporate_representative" class="form-control col-md-6" >
                 </div>
                 <br>
                 <div class="row">
                     <label class=" col-md-4" style="text-align: center">企业信用评价</label>
-                    <select id="single-select" class="form-control col-md-6" >
+                    <select id="assess" class="form-control col-md-6" >
                         <option>优</option>
                         <option>良</option>
                         <option>差</option>
@@ -249,7 +249,7 @@
             </div>
             <div class="modal-footer border-0" style="background-color: white">
                 <button type="button" class="btn btn-link" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
+                <button type="button" class="btn btn-info" id="search"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
             </div>
         </div>
     </div>
@@ -260,5 +260,18 @@
 <script src="{% static '/js/vendor/chart.js/chart.min.js' %}"></script>
 <script src="{% static '/js/carbon.js' %}"></script>
 <script src="{% static '/js/demo.js' %}"></script>
+<script>
+    $("#search").on("click",function(){
+            $.ajax({
+                url :"/building/business/manager/",
+                type:"POST",
+				data:{"business_name":$("#business_name").val(),"business_id":$("#business_id").val(),"corporate_representative":$("#corporate_representative").val()},
+                dataType : "Json",
+                success:function (SearchSet) {
+                    alert(SearchSet["SearchSet"])
+                },
+            });
+        });
+</script>
 </body>
 </html>

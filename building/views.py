@@ -1,8 +1,9 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse,JsonResponse
-from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core import paginator
 from building.models import *
 from io import BytesIO
 from . import utils
@@ -82,12 +83,28 @@ def index(request):
 # TODO
 # 企业信息管理
 @login_required
-def business_manage(request):
+@csrf_exempt  # 跨站请求伪造
+def business_manage(request, page):
+    business = Business.objects.all()  # 所有企业
+    if page == "":
+        pages = 1
+    else:
+        pages = int(page)
     if request.method == "GET":
-        business = Business.objects.all()  # 所有企业
-        return render(request, "business_manage.html", {"business": business})
+        pag = paginator.Paginator(business, 1)
+        pages = pag.page(pages)
+        return render(request, "business_manage.html", {"business": business, "page": pages})
     elif request.method == "POST":
-        return render(request, "business_manage.html")
+        business_name = request.POST.get("business_name")    # 企业名称
+        business_id = request.POST.get("business_id")      # 企业编号
+        corporate_representative = request.POST.get("corporate_representative")      # 法人代表
+        print("123")
+        print(business_name, "456")
+        for i in business:
+            if business_name == " ":
+                print("lalala")
+        search_set = True
+        return JsonResponse({"SearchSet": search_set})
 
 
 # TODO
