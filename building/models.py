@@ -67,7 +67,15 @@ class Check(models.Model):
 # 工资表
 class Salary(models.Model):
     id = models.AutoField(primary_key=True)
-    staff = models.ForeignKey(Staffs, on_delete=models.CASCADE, verbose_name="员工号")
+    staff = models.ForeignKey(Staffs, on_delete=models.CASCADE, verbose_name="员工")
+    money = models.FloatField(verbose_name="所得工资", default=0)
+    is_get = models.CharField(max_length=10, verbose_name="是否结算", default="否")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name="参与项目",default=1)
+    is_staff = models.CharField(max_length=5, verbose_name="劳务人员核对", default="未核对")
+    is_unit = models.CharField(max_length=5, verbose_name="建筑单位核对", default="未核对")
+    is_company = models.CharField(max_length=5, verbose_name="建筑企业核对", default="未核对")
+    is_manager = models.CharField(max_length=5, verbose_name="市建委核对", default="未核对")
+
 
 
 

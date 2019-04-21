@@ -93,7 +93,7 @@ def business_manage(request, page):
     if request.method == "GET":
         pag = paginator.Paginator(business, 1)
         pages = pag.page(pages)
-        return render(request, "business_manage.html", {"business": business, "page": pages})
+        return render(request, "business_manage.html", {"page": pages})
     elif request.method == "POST":
         business_name = request.POST.get("business_name")    # 企业名称
         business_id = request.POST.get("business_id")      # 企业编号
@@ -107,7 +107,6 @@ def business_manage(request, page):
         return JsonResponse({"SearchSet": search_set})
 
 
-# TODO
 # 企业详细信息查看
 @login_required
 def business_information(request, business_id):
@@ -137,10 +136,17 @@ def business_count(request):
 # TODO
 # 项目信息管理
 @login_required
-def project_manage(request):
+def project_manage(request, page):
     if request.method == "GET":
         project = Project.objects.all()   # 所有项目
-        return render(request, "project_manage.html", {"Project": project})
+        if page == "":
+            pages = 1
+        else:
+            pages = int(page)
+        if request.method == "GET":
+            pag = paginator.Paginator(project, 1)     # 每页的数据量
+            pages = pag.page(pages)
+        return render(request, "project_manage.html", {"page": pages})
     elif request.method == "POST":
         return render(request, "project_manage.html")
 
@@ -165,9 +171,17 @@ def project_information(request, project_id):
 # TODO
 # 工资核对
 @login_required
-def salary_check(request):
+def salary_check(request, page):
     if request.method == "GET":
-        return render(request, "salary_check.html")
+        salary = Salary.objects.all()  # 所有工资详情
+        if page == "":
+            pages = 1
+        else:
+            pages = int(page)
+        if request.method == "GET":
+            pag = paginator.Paginator(salary, 1)  # 每页的数据量
+            pages = pag.page(pages)
+        return render(request, "salary_check.html", {"page": pages})
     elif request.method == "POST":
         return render(request, "salary_check.html")
 

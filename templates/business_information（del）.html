@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>郑州市建筑劳务监管平台</title>
+    <link rel="stylesheet" href="{% static '/css/vendor/simple-line-icons/css/simple-line-icons.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/css/fontawesome-all.min.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <nav class="navbar page-header">
+        <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <a class="navbar-brand" href="#">
+            <h3>郑州市建筑劳务监管平台</h3>
+        </a>
+        <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i>
+        </a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-md-down-none">
+                <a href="#">
+                    <i class="fa fa-bell"></i>
+                    <span class="badge badge-pill badge-danger">5</span>
+                </a>
+            </li>
+
+            <li class="nav-item d-md-down-none">
+                <a href="#">
+                    <i class="fa fa-envelope-open"></i>
+                    <span class="badge badge-pill badge-danger">5</span>
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static '/img/avatar-1.png' %}" class="avatar avatar-sm" alt="logo">
+                    <span class="small ml-1 d-md-down-none">管理员</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">账户</div>
+
+                    <a href="/building/settings/" class="dropdown-item">
+                        <i class="fa fa-user"></i> 账户设置
+                    </a>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-envelope"></i> 消息
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-bell"></i> 通知
+                    </a>
+
+                    <a href="/building/logout/" class="dropdown-item">
+                        <i class="fa fa-lock"></i> 注销
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-title">Navigation</li>
+
+                    <li class="nav-item">
+                        <a href="/building/index/" class="nav-link">
+                            <i class="icon icon-speedometer"></i> 首页
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-target"></i> 企业管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="/building/business/manager/" class="nav-link active">
+                                    <i class="icon icon-target"></i> 企业信息
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-energy"></i> 项目管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="/building/project/manager/" class="nav-link">
+                                    <i class="icon icon-energy"></i> 项目信息
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-graph"></i> 劳务管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="chartjs.html" class="nav-link">
+                                    <i class="icon icon-graph"></i> 劳务人员考勤
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/building/salary/check/" class="nav-link">
+                                    <i class="icon icon-graph"></i> 劳务工资核对
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-title">More</li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-umbrella"></i> 设置 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="/building/settings/" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 账户设置
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="login.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 注销
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="register.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 通知
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="invoice.html" class="nav-link">
+                                    <i class="icon icon-umbrella"></i> 消息
+                                </a>
+                            </li>
+                            <br>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-light" style="text-align: center;font-size: 30px;font-weight: 500 ">
+                                企业资料
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">企业名称</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_name }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">企业编号</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_id }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">企业管理者</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.corporate_representative }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">注册地址</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.RA }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">办公地址</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.OA }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">资质类别</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.Qualification_class }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">企业信用等级</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.assess }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">工资保障金余额</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.ensure_salary }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">营业执照号</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.business_num }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">法人代表</label>
+                                            <input id="disabled-input" class="form-control" value="{{ business.corporate_representative}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="disabled-input" class="form-control-label">法人代表联系方式</label>
+                                            <input id="disabled-input" class="form-control" value="Input value" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-danger" href="/building/business/manager/">返回上一步</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/js/vendor/popper.js/popper.min.js' %}"></script>
+<script src="{% static '/js/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static '/js/carbon.js' %}"></script>
+<script src="{% static '/js/demo.js' %}"></script>
+</body>
+</html>

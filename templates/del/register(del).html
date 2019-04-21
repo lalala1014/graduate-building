@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>郑州市建筑劳务监管平台</title>
+    <link rel="stylesheet" href="{% static '/css/vendor/simple-line-icons/css/simple-line-icons.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/css/fontawesome-all.min.css'  %}">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+<body>
+<div class="page-wrapper flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+               <form method="post">
+                   {% csrf_token %}
+                    <div class="card p-4">
+                    <div class="card-header text-center text-uppercase h4 font-weight-light">
+                        注册用户
+                    </div>
+
+                    <div class="card-body py-5">
+                        <div class="form-group">
+                            <label class="form-control-label">用户名</label>
+                            <input type="name" class="form-control" id="user">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">电子邮箱</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">密码</label>
+                            <input type="password" class="form-control" id="pwd">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">重复密码</label>
+                            <input type="password" class="form-control" id="c_pwd">
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="button" id="btn" class="btn btn-success btn-block">注册</button>
+                    </div>
+                </div>
+               </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/js/vendor/popper.js/popper.min.js' %}"></script>
+<script src="{% static '/js/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static '/js/carbon.js' %}"></script>
+<script src="{% static '/js/demo.js' %}"></script>
+<script>
+
+    $("#btn").on("click",function(){
+        //获取文本元素的值
+        var email = document.getElementById("email");
+        //邮件格式
+        reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+        //非空验证
+        if (email.value == "") {
+            alert("请输入电子邮件");
+        }
+        //格式验证
+        else if (!reg.test(email.value)) {
+            alert("邮件格式不正确，请重新输入!");
+        }
+        else {
+            if(($("#c_pwd").val())==($("#pwd").val()))
+            {
+                $.ajax({
+                    url :"/building/register/",
+                    type:"POST",
+                    data:{"user":$("#user").val(),"password":$("#pwd").val(),"email":$("#email").val()},
+                    dataType : "Json",
+                    success:function (isRegister) {
+                        alert(isRegister["isRegister"]);
+                        window.location.href = "/building/login/";
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else{
+                alert("两次密码不一致！")
+            }
+        }
+    });
+</script>
+</body>
+</html>

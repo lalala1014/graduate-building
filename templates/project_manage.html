@@ -1,287 +1,302 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!DOCTYPE html>
+<html>
+  <head>
+      {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>郑州市建筑劳务监管平台</title>
-    <link rel="stylesheet" href="{% static '/css/vendor/simple-line-icons/css/simple-line-icons.css'  %}">
-    <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/css/fontawesome-all.min.css'  %}">
-    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
-</head>
-<body class="sidebar-fixed header-fixed">
-<div class="page-wrapper">
-    <div class="page-header">
-        <nav class="navbar page-header">
-        <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
-            <i class="fa fa-bars"></i>
-        </a>
-
-        <a class="navbar-brand" href="#">
-            <h3>郑州市建筑劳务监管平台</h3>
-        </a>
-        <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i>
-        </a>
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-md-down-none">
-                <a href="#">
-                    <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-danger">5</span>
-                </a>
-            </li>
-
-            <li class="nav-item d-md-down-none">
-                <a href="#">
-                    <i class="fa fa-envelope-open"></i>
-                    <span class="badge badge-pill badge-danger">5</span>
-                </a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{% static '/images/avatar-1.png' %}" class="avatar avatar-sm" alt="logo">
-                    <span class="small ml-1 d-md-down-none">管理员</span>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header">账户</div>
-
-                    <a href="/building/settings/" class="dropdown-item">
-                        <i class="fa fa-user"></i> 账户设置
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-envelope"></i> 消息
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fa fa-bell"></i> 通知
-                    </a>
-
-                    <a href="/building/logout/" class="dropdown-item">
-                        <i class="fa fa-lock"></i> 注销
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    </div>
-
-    <div class="main-container">
-        <div class="sidebar">
-            <nav class="sidebar-nav">
-                <ul class="nav">
-                    <li class="nav-title">Navigation</li>
-
-                    <li class="nav-item">
-                        <a href="/building/index/" class="nav-link">
-                            <i class="icon icon-speedometer"></i> 首页
-                        </a>
-                    </li>
-
-                    <li class="nav-item nav-dropdown">
-                        <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-target"></i> 企业管理 <i class="fa fa-caret-left"></i>
-                        </a>
-
-                        <ul class="nav-dropdown-items">
-                            <li class="nav-item">
-                                <a href="/building/business/manager/" class="nav-link">
-                                    <i class="icon icon-target"></i> 企业信息
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item nav-dropdown">
-                        <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-energy"></i> 项目管理 <i class="fa fa-caret-left"></i>
-                        </a>
-
-                        <ul class="nav-dropdown-items">
-                            <li class="nav-item">
-                                <a href="/building/project/manager/" class="nav-link active">
-                                    <i class="icon icon-energy"></i> 项目信息
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item nav-dropdown">
-                        <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-graph"></i> 劳务管理 <i class="fa fa-caret-left"></i>
-                        </a>
-
-                        <ul class="nav-dropdown-items">
-                            <li class="nav-item">
-                                <a href="chartjs.html" class="nav-link">
-                                    <i class="icon icon-graph"></i> 劳务人员考勤
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/building/salary/check/" class="nav-link">
-                                    <i class="icon icon-graph"></i> 劳务工资核对
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-title">More</li>
-
-                    <li class="nav-item nav-dropdown">
-                        <a href="#" class="nav-link nav-dropdown-toggle">
-                            <i class="icon icon-umbrella"></i> 设置 <i class="fa fa-caret-left"></i>
-                        </a>
-
-                        <ul class="nav-dropdown-items">
-                            <li class="nav-item">
-                                <a href="/building/settings/" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 账户设置
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="login.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 注销
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="register.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 通知
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="invoice.html" class="nav-link">
-                                    <i class="icon icon-umbrella"></i> 消息
-                                </a>
-                            </li>
-                            <br>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-       <div class="content">
-           <button class="btn btn btn-info" data-toggle="modal" data-target="#modal-11"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
-           <br> <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header bg-light" style="text-align: center;font-size: 30px;font-weight: 500">
-                            工程信息
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>工程编号</th>
-                                        <th>工程名称</th>
-                                        <th>工程负责人</th>
-                                        <th>建筑单位</th>
-                                        <th>建筑企业</th>
-                                        <th>工程进度</th>
-                                    </tr>
-                                    </thead>
-                                    {% for i in Project %}
-                                    <tbody>
-                                    <tr>
-                                        <td>{{ i.pro_id }}</td>
-                                        <td class="text-nowrap"><a href="/building/project/information/{{ i.pro_id }}/">{{ i.project_name }}</a></td>
-                                        <td>{{ i.project_manager }}</td>
-                                        <td>{{ i.project_unit }}</td>
-                                        <td>{{ i.project_company.business_name }}</td>
-                                        <td>{{ i.project_plan }}</td>
-                                    </tr>
-                                    </tbody>
-                                    {% endfor %}
-                                </table>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/css/vendor/bootstrap/bootstrap.min.css'  %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/css/vendor/font-awesome/font-awesome.min.css'  %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static 'css/fontastic.css'  %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css'  %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css'  %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <!-- Search Box-->
+          <div class="search-box">
+            <button class="dismiss"><i class="icon-close"></i></button>
+            <form id="searchForm" action="#" role="search">
+              <input type="search" placeholder="What are you looking for..." class="form-control">
+            </form>
+          </div>
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <!-- Navbar Header-->
+              <div class="navbar-header">
+                <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
+                  <div class="brand-text d-none d-lg-inline-block"><strong>郑州市建筑劳务监管平台</strong></div>
+                  <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
+                <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+              </div>
+              <!-- Navbar Menu -->
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <!-- Search-->
+                <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
+                <!-- Notifications-->
+                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">12</span></a>
+                  <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification">
+                          <div class="notification-content"><i class="fa fa-envelope bg-green"></i>You have 6 new messages </div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification">
+                          <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification">
+                          <div class="notification-content"><i class="fa fa-upload bg-orange"></i>Server Rebooted</div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification">
+                          <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
+                          <div class="notification-time"><small>10 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications                                            </strong></a></li>
+                  </ul>
+                </li>
+                <!-- Messages                        -->
+                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
+                  <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Read all messages   </strong></a></li>
+                  </ul>
+                </li>
+                <!-- Languages dropdown    -->
+                <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
+                  <ul aria-labelledby="languages" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/DE.png" alt="English" class="mr-2">German</a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/FR.png" alt="English" class="mr-2">French                                         </a></li>
+                  </ul>
+                </li>
+                <!-- Logout    -->
+                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">注销</span><i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">Mark Stephen</h1>
+              <p>Web Designer</p>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+            <ul class="list-unstyled">
+                <li><a href="/building/index"> <i class="icon-home"></i>首页 </a></li>
+                <li><a href="#businessdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>企业管理 </a>
+                    <ul id="businessdropdownDropdown" class="collapse list-unstyled">
+                        <li><a href="/building/business/manager/1/">企业信息</a></li>
+                        <li><a href="/building/business/count/">企业统计</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
+                    <ul id="projectdropdownDropdown" class="collapse list-unstyled show">
+                        <li class="active"><a href="/building/project/manager/1/">项目信息</a></li>
+                        <li><a href="#">项目统计</a></li>
+                    </ul>
+                </li>
+                <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
+                    <ul id="salarydropdownDropdown" class="collapse list-unstyled ">
+                        <li><a href="#">劳务考勤</a></li>
+                        <li><a href="#">工资统计</a></li>
+                        <li><a href="/building/salary/check/">工资核对</a></li>
+                    </ul>
+                </li>
+          </ul><span class="heading">附加功能</span>
+          <ul class="list-unstyled">
+            <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
+            <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
+            <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
+            <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">企业信息查询</h2>
+            </div>
+          </header>
+          <!-- Breadcrumb-->
+          <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
+              <li class="breadcrumb-item active">项目信息            </li>
+            </ul>
+          </div>
+          <section class="tables">
+            <div class="container-fluid">
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button><br><br>
+                <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="exampleModalLabel" class="modal-title">搜索项目</h4>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label>项目名称</label>
+                                        <input type="text" placeholder="项目名称" class="form-control" id="project_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>项目编号</label>
+                                        <input type="text" placeholder="项目编号" class="form-control" id="project_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>工程进度</label>
+                                        <select id="assess" class="form-control col-md-6" >
+                                            <option>审批未开工</option>
+                                            <option>在建</option>
+                                            <option>停工</option>
+                                            <option>竣工</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>所属区域</label>
+                                        <select id="assess" class="form-control col-md-6" >
+                                            <option>二七区</option>
+                                            <option>中原区</option>
+                                            <option>金水区</option>
+                                            <option>新郑市</option>
+                                            <option>惠济区</option>
+                                            <option>管城回族区</option>
+                                            <option>上街区</option>
+                                            <option>登封市</option>
+                                            <option>新密市</option>
+                                            <option>巩义市</option>
+                                            <option>中牟县</option>
+                                            <option>高新区</option>
+                                            <option>荥阳市</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>建筑单位</label>
+                                        <input type="text" placeholder="建筑单位" class="form-control" id="project_unit">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>建筑企业</label>
+                                        <input type="text" placeholder="建筑企业" class="form-control" id="project_company">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
+                                <button type="button" class="btn btn-primary">搜索</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modal-11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-info">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-white">查询项目信息</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">项目信息</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                                <th>工程编号</th>
+                                <th>工程名称</th>
+                                <th>工程负责人</th>
+                                <th>建筑单位</th>
+                                <th>建筑企业</th>
+                                <th>工程进度</th>
+                            </tr>
+                          </thead>
+                            {% for i in page %}
+                                <tbody>
+                                <tr>
+                                    <td>{{ i.pro_id }}</td>
+                                    <td class="text-nowrap" ><a href="/building/business/information/{{ i.pro_id }}/">{{ i.project_name }}</a></td>
+                                    <td>{{ i.project_manager }}</td>
+                                    <td>{{ i.project_unit }}</td>
+                                    <td>{{ i.project_company.business_name }}</td>
+                                    <td>{{ i.project_plan }}</td>
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="modal-body p-5" style="background-color: white">
-                <div class="row">
-                    <label class=" col-md-5 " style="text-align: center">项目名称</label>
-                    <input id="normal-input" class="form-control col-md-6">
-                </div>
-                <br>
-                <div class="row">
-                    <label class=" col-md-5" style="text-align: center">项目编号</label>
-                    <input id="normal-input" class="form-control col-md-6">
-                </div>
-                <br>
-                <div class="row">
-                    <label class=" col-md-5" style="text-align: center">工程进度</label>
-                    <select id="single-select" class="form-control col-md-6">
-                        <option>审批未开工</option>
-                        <option>在建</option>
-                        <option>停工</option>
-                        <option>竣工</option>
-                    </select>
-                </div>
-                <br>
-                <div class="row">
-                    <label class=" col-md-5" style="text-align: center">所属区域</label>
-                    <select id="single-select" class="form-control col-md-6">
-                        <option>二七区</option>
-                        <option>中原区</option>
-                        <option>金水区</option>
-                        <option>新郑市</option>
-                        <option>惠济区</option>
-                        <option>管城回族区</option>
-                        <option>上街区</option>
-                        <option>登封市</option>
-                        <option>新密市</option>
-                        <option>巩义市</option>
-                        <option>中牟县</option>
-                        <option>高新区</option>
-                        <option>荥阳市</option>
-                    </select>
-                </div>
-                <br>
-                <div class="row">
-                    <label class=" col-md-5" style="text-align: center">建筑单位</label>
-                    <input id="normal-input" class="form-control col-md-6">
-                </div>
-                <br>
-                <div class="row">
-                    <label class=" col-md-5" style="text-align: center">建筑企业</label>
-                    <input id="normal-input" class="form-control col-md-6">
-                </div>
+              </div>
             </div>
+          </section>
 
-            <div class="modal-footer border-0" style="background-color: white">
-                <button type="button" class="btn btn-link" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</button>
-            </div>
         </div>
+      </div>
     </div>
-</div>
-<script src="{% static '/js/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static '/js/vendor/popper.js/popper.min.js' %}"></script>
-<script src="{% static '/js/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static '/js/vendor/chart.js/chart.min.js' %}"></script>
-<script src="{% static '/js/carbon.js' %}"></script>
-<script src="{% static '/js/demo.js' %}"></script>
-</body>
+    <!-- JavaScript files-->
+    <script src="{% static '/js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/js/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/js/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/vendor/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/js/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/js/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/charts-home.js' %}"></script>
+    <!-- Main File-->
+  <script src="{% static '/js/front.js' %}"></script>
+  <script>
+    $("#search").on("click",function(){
+            $.ajax({
+                url :"/building/project/manager/",
+                type:"POST",
+				data:{"project_name":$("#project_name").val(),"project_id":$("#project_id").val(),"project_unit":$("#project_unit").val(),"project_company":$("#project_company").val()},
+                dataType : "Json",
+                success:function (SearchSet) {
+                    alert(SearchSet["SearchSet"])
+                },
+            });
+        });
+</script>
+  </body>
 </html>
