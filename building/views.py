@@ -43,10 +43,10 @@ def register(request):
         password = request.POST.get("password")     # 获取密码
         email = request.POST.get("email")      # 获取电子邮箱
         users = User.objects.all()      # 所有的用户
-        for i in users:
-            if str(i) == username:
-                return JsonResponse({"isRegister": "用户已存在"})
-        else:
+        try:
+            User.objects.get(username=username)
+            return JsonResponse({"isRegister": "用户已存在"})
+        except Exception:
             User.objects.create_user(username=username, password=password, email=email)  # 注册用户
             return JsonResponse({"isRegister": "注册成功"})
 
@@ -73,7 +73,7 @@ def settings(request):
 @login_required
 def index(request):
     if request.method == "GET":
-        return render(request, "index.html")
+        return render(request, "index.html", {"user": request.user})
     elif request.method == "POST":
         return render(request, "index.html")
 
@@ -85,7 +85,7 @@ def index(request):
 @login_required
 @csrf_exempt  # 跨站请求伪造
 def business_manage(request, page):
-    business = Business.objects.all()  # 所有企业
+    business = Business.objects.all().order_by("id")  # 所有企业
     if page == "":
         pages = 1
     else:
@@ -93,7 +93,7 @@ def business_manage(request, page):
     if request.method == "GET":
         pag = paginator.Paginator(business, 1)
         pages = pag.page(pages)
-        return render(request, "business_manage.html", {"page": pages})
+        return render(request, "business_manage.html", {"page": pages, "pag": pag})
     elif request.method == "POST":
         business_name = request.POST.get("business_name")    # 企业名称
         business_id = request.POST.get("business_id")      # 企业编号
@@ -111,12 +111,8 @@ def business_manage(request, page):
 @login_required
 def business_information(request, business_id):
     if request.method == "GET":
-        bus = ""
-        business = Business.objects.all()  # 所有企业
-        for i in business:
-            if business_id == i.business_id:
-                bus = i
-        return render(request, "business_information.html", {"business": bus})
+        business = Business.objects.get(business_id=business_id)
+        return render(request, "business_information.html", {"business": business})
     elif request.method == "POST":
         return render(request, "business_information.html")
 
@@ -138,7 +134,7 @@ def business_count(request):
 @login_required
 def project_manage(request, page):
     if request.method == "GET":
-        project = Project.objects.all()   # 所有项目
+        project = Project.objects.all().order_by("id")   # 所有项目
         if page == "":
             pages = 1
         else:
@@ -146,7 +142,7 @@ def project_manage(request, page):
         if request.method == "GET":
             pag = paginator.Paginator(project, 1)     # 每页的数据量
             pages = pag.page(pages)
-        return render(request, "project_manage.html", {"page": pages})
+        return render(request, "project_manage.html", {"page": pages, "pag": pag})
     elif request.method == "POST":
         return render(request, "project_manage.html")
 
@@ -156,34 +152,35 @@ def project_manage(request, page):
 @login_required
 def project_information(request, project_id):
     if request.method == "GET":
-        pro = ""
-        project = Project.objects.all()    # 所有项目
-        for i in project:
-            if project_id == i.pro_id:
-                pro = i
-        return render(request, "project_information.html", {"project": pro})
+        project = Project.objects.get(pro_id=project_id)
+        return render(request, "project_information.html", {"project": project})
     elif request.method == "POST":
         return render(request, "project_information.html")
 
 
 # ********************************************** 工 资 ******************************************************
 
-# TODO
+
 # 工资核对
 @login_required
+@csrf_exempt  # 跨站请求伪造
 def salary_check(request, page):
     if request.method == "GET":
-        salary = Salary.objects.all()  # 所有工资详情
+        salary = Salary.objects.all().order_by("id")  # 所有工资详情排序
         if page == "":
             pages = 1
         else:
             pages = int(page)
         if request.method == "GET":
-            pag = paginator.Paginator(salary, 1)  # 每页的数据量
-            pages = pag.page(pages)
-        return render(request, "salary_check.html", {"page": pages})
+            pag = paginator.Paginator(salary, 1)  # 每页的数据量, 实例化分页对象
+            page_s = pag.page(pages)   # 该页的数据对象
+        return render(request, "salary_check.html", {"page": page_s, "page_id": pages, "pag": pag})
     elif request.method == "POST":
-        return render(request, "salary_check.html")
+        check_id = request.POST.get("check_id")
+        check_peo = Salary.objects.get(id=check_id)
+        check_peo.is_manager = "已核对"
+        check_peo.save()
+        return JsonResponse({"is_check": "已核对"})
 
 
 # 在内存中开辟空间用以生成临时的图片
