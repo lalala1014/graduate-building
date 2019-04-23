@@ -128,7 +128,7 @@
                 <li><a href="/building/index"> <i class="icon-home"></i>首页 </a></li>
                 <li><a href="#businessdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>企业管理 </a>
                     <ul id="businessdropdownDropdown" class="collapse list-unstyled show">
-                        <li class="active"><a href="/building/business/manager/1/">企业信息</a></li>
+                        <li class="active"><a href="/building/business/manager/">企业信息</a></li>
                         <li><a href="/building/business/count/">企业统计</a></li>
                     </ul>
                 </li>
@@ -169,48 +169,9 @@
           </div>
           <section class="tables">
             <div class="container-fluid">
-                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
                 <br><br>
-                <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 id="exampleModalLabel" class="modal-title">搜索企业</h4>
-                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>企业名称</label>
-                                        <input type="text" placeholder="企业名称" class="form-control" id="business_name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>企业编号</label>
-                                        <input type="text" placeholder="企业编号" class="form-control" id="business_id">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>法人代表</label>
-                                        <input type="text" placeholder="法人代表" class="form-control" id="corporate_representative">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>企业信用评价</label>
-                                        <select id="assess" class="form-control col-md-6" >
-                                            <option>优</option>
-                                            <option>良</option>
-                                            <option>差</option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
-                                <button type="button" class="btn btn-primary" id="search_business">搜索</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="card">
@@ -278,35 +239,17 @@
     <!-- Main File-->
   <script src="{% static '/js/front.js' %}"></script>
   <script>
-      $("#search_business").on("click",function(){
-          $.ajax({
-              url :"/building/business/manager/{{ page.number }}",
-              type:"POST",
-              data:{"business_name":$("#business_name").val(),"business_id":$("#business_id").val(),"corporate_representative":$("#corporate_representative").val()},
-              dataType : "Json",
-              success:function (is_filter) {
-                  if(is_filter["is_filter"]==false)
-                  {
-                      alert("没有找到查询的结果！");
-                  }
-                  else {
-                      window.location.href="/building/business/filter/"
-                  }
-              }
-          });
-      });
-    <!-- 跳转到上一页面-->
       function pre_page() {
           if(({{ page.number }})>1)
           {
-              window.location.href="/building/business/manager/{{ page.number|add:-1 }}"
+              window.location.href="/building/business/filter/{{ page.number|add:-1 }}"
           }
       }
       <!-- 跳转到下一页面-->
       function next_page() {
           if(({{ page.number }})<({{ pag.num_pages }}))
           {
-              window.location.href="/building/business/manager/{{ page.number|add:1 }}"
+              window.location.href="/building/business/filter/{{ page.number|add:1 }}"
           }
       }
      <!--跳转到指定页面-->
@@ -317,14 +260,14 @@
           {
               if(pageNumbers<={{ pag.num_pages }})
               {
-                  window.location.href=("/building/business/manager/"+pageNumber)
+                  window.location.href=("/building/business/filter/"+pageNumber)
               }
               else {
-                  window.location.href="/building/business/manager/"
+                  window.location.href="/building/business/filter/"
               }
           }
           else {
-                  window.location.href="/building/business/manager/"
+                  window.location.href="/building/business/filter/"
               }
       }
     <!-- 导出成excel-->

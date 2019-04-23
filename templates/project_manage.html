@@ -270,8 +270,8 @@
                               共<span id="totalNumber" style="color: dodgerblue">{{ pag.count }}</span>条   
                               当前第<span id="currentPage" style="color: black">{{ page.number }}</span>/<span id="totalPage" style="color: black">{{ pag.num_pages }}</span>页
                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <button id="Previous" class="btn btn-default">上一页</button>
-                              <button id="Next" class="btn btn-default">下一页</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button id="Previous" class="btn btn-default" onclick="pre_page()">上一页</button>
+                              <button id="Next" class="btn btn-default" onclick="next_page()">下一页</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               跳至&nbsp;<input id="pageNumber" type="number" min="1" max="100" style="width: 78px; text-align: center">&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <button id="goPage" type="button" class="btn btn-primary" onclick="skip()">GO</button>
                           </div>
@@ -309,6 +309,21 @@
                 },
             });
         });
+     <!-- 跳转到上一页面-->
+      function pre_page() {
+          if(({{ page.number }})>1)
+          {
+              window.location.href="/building/project/manager/{{ page.number|add:-1 }}"
+          }
+      }
+      <!-- 跳转到下一页面-->
+      function next_page() {
+          if(({{ page.number}})<({{ pag.num_pages }}))
+          {
+              window.location.href="/building/project/manager/{{ page.number|add:1 }}"
+          }
+      }
+     <!--跳转到指定页面-->
      function skip() {
          pageNumber = $("#pageNumber").val();
          pageNumbers = parseInt(pageNumber);

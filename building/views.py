@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
-# from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core import paginator
 from building.models import *
@@ -42,11 +41,10 @@ def register(request):
         username = request.POST.get("user")     # 获取用户名
         password = request.POST.get("password")     # 获取密码
         email = request.POST.get("email")      # 获取电子邮箱
-        users = User.objects.all()      # 所有的用户
         try:
             User.objects.get(username=username)
             return JsonResponse({"isRegister": "用户已存在"})
-        except Exception:
+        except Exception as e:
             User.objects.create_user(username=username, password=password, email=email)  # 注册用户
             return JsonResponse({"isRegister": "注册成功"})
 
@@ -98,13 +96,44 @@ def business_manage(request, page):
         business_name = request.POST.get("business_name")    # 企业名称
         business_id = request.POST.get("business_id")      # 企业编号
         corporate_representative = request.POST.get("corporate_representative")      # 法人代表
-        print("123")
-        print(business_name, "456")
-        for i in business:
-            if business_name == " ":
-                print("lalala")
-        search_set = True
-        return JsonResponse({"SearchSet": search_set})
+        search_dict = dict()   # 定义一个字典保存关键字
+        if business_name:
+            search_dict["business_name"] = business_name
+        if business_id:
+            search_dict["business_id"] = business_id
+        if corporate_representative:
+            search_dict["corporate_representative"] = corporate_representative
+        search = Business.objects.filter(**search_dict).order_by("id")  # 使用字典匹配查询
+        list_a = []
+        for i in search:
+            list_a.append(i.id)
+            print(type(i.id),i.id)
+        request.session["search_business"] = list_a
+        if search.count() > 0:
+            return JsonResponse({"is_filter": True})
+        else:
+            return JsonResponse({"is_filter": False})
+
+
+# 企业查询结果
+@login_required
+def business_filter(request, page):
+    if page == "":
+        pages = 1
+    else:
+        pages = int(page)
+    for i in request.session["search_business"]:
+        search_business = Business.objects.filter(id=str(i)).order_by("id")
+#####################此处有错误
+        # print(search_business)
+    if request.method == "GET":
+        # return render(request, "business_filter.html")
+        pag = paginator.Paginator(search_business, 1)
+        pages = pag.page(pages)
+        print(pages.number)
+        return render(request, "business_filter.html", {"page": pages, "pag": pag})
+    elif request.method == "POST":
+        return render(request, "business_filter.html")
 
 
 # 企业详细信息查看
