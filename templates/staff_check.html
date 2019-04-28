@@ -8,15 +8,15 @@
             <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
               <h1 class="h4">{{ user.username }}</h1>
-                <p>超级管理员</p>
+              <p>超级管理员</p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
             <ul class="list-unstyled">
                 <li><a href="/building/index"> <i class="icon-home"></i>首页 </a></li>
                 <li><a href="#businessdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>企业管理 </a>
-                    <ul id="businessdropdownDropdown" class="collapse list-unstyled show">
-                        <li class="active"><a href="/building/business/manager/">企业信息</a></li>
+                    <ul id="businessdropdownDropdown" class="collapse list-unstyled">
+                        <li><a href="/building/business/manager/">企业信息</a></li>
                         <li><a href="/building/business/count/">企业统计</a></li>
                         <li><a href="/building/business/assess/">企业评价</a></li>
                     </ul>
@@ -28,8 +28,8 @@
                     </ul>
                 </li>
                 <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
-                    <ul id="salarydropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="/building/staff/check/">劳务考勤</a></li>
+                    <ul id="salarydropdownDropdown" class="collapse list-unstyled show">
+                        <li class="active"><a href="/building/staff/check/">劳务考勤</a></li>
                         <li><a href="#">工资统计</a></li>
                         <li><a href="/building/salary/check/">工资核对</a></li>
                     </ul>
@@ -53,7 +53,7 @@
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
-              <li class="breadcrumb-item active">企业信息            </li>
+              <li class="breadcrumb-item active">劳务员工考勤信息            </li>
             </ul>
           </div>
           <section class="tables">
@@ -66,31 +66,34 @@
                     <div role="document" class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 id="exampleModalLabel" class="modal-title">搜索企业</h4>
+                                <h4 id="exampleModalLabel" class="modal-title">搜索劳务员工</h4>
                                 <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label>企业名称</label>
-                                        <input type="text" placeholder="企业名称" class="form-control" id="business_name">
+                                        <label>员工名称</label>
+                                        <input type="text" placeholder="员工名称" class="form-control" id="staff_name">
                                     </div>
                                     <div class="form-group">
-                                        <label>企业编号</label>
-                                        <input type="text" placeholder="企业编号" class="form-control" id="business_id">
+                                        <label>员工编号</label>
+                                        <input type="text" placeholder="员工编号" class="form-control" id="staff_id">
                                     </div>
                                     <div class="form-group">
-                                        <label>法人代表</label>
-                                        <input type="text" placeholder="法人代表" class="form-control" id="corporate_representative">
+                                        <label>所属劳务公司</label>
+                                        <input type="text" placeholder="所属劳务公司" class="form-control" id="staff_company">
                                     </div>
                                     <div class="form-group">
-                                        <label>企业信用评价</label>
-                                        <select id="assess" class="form-control col-md-6" >
-                                            <option selected></option>
-                                            <option>优</option>
-                                            <option>良</option>
-                                            <option>差</option>
-                                        </select>
+                                        <label>参与项目</label>
+                                        <input type="text" placeholder="参与项目" class="form-control" id="staff_project">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>项目建设单位</label>
+                                        <input type="text" placeholder="项目建设单位" class="form-control" id="project_unit">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>项目建设企业</label>
+                                        <input type="text" placeholder="项目建设企业" class="form-control" id="project_company">
                                     </div>
                                 </form>
                             </div>
@@ -109,35 +112,28 @@
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table table-striped" id="business">
+                        <table class="table table-striped" id="staff_check">
                           <thead>
                             <tr>
-                                <th>企业编号</th>
-                                <th>企业名称</th>
-                                <th>法人代表</th>
-                                <th>企业信用等级</th>
-                                <th>资质类别</th>
-                                <th>工资保障金余额</th>
-                                <th>办公地址</th>
+                                <th>员工编号</th>
+                                <th>员工名称</th>
+                                <th>所属劳务公司</th>
+                                <th>参与项目</th>
+                                <th>项目建设单位</th>
+                                <th>项目建设企业</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考勤时间</th>
                             </tr>
                           </thead>
                             {% for i in page %}
                                 <tbody>
                                 <tr>
-                                    <td>{{ i.business_id }}</td>
-                                    <td class="text-nowrap" ><a href="/building/business/information/{{ i.business_id }}/">{{ i.business_name }}</a></td>
-                                    <td>{{ i.corporate_representative }}</td>
-                                    <td>{% if i.assess == "优" %}
-                                        <p style="color: green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</p>
-                                        {% elif i.assess == "良" %}
-                                        <p style="color: orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</p>
-                                        {% elif i.assess == "差" %}
-                                        <p style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</p>
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ i.Qualification_class }}</td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.ensure_salary }}</td>
-                                    <td>{{ i.OA }}</td>
+                                    <td>{{ i.staff.staff_id }}</td>
+                                    <td class="text-nowrap" ><a href="/building/staff/information/{{ i.staff.staff_id }}/">{{ i.staff.staff_name }}</a></td>
+                                    <td>{{ i.staff.company.ser_name }}</td>
+                                    <td>&nbsp;{{ i.project.project_name }}</td>
+                                    <td>&nbsp;&nbsp;{{ i.project.project_unit }}</td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.project.project_company.business_name }}</td>
+                                    <td>{{ i.time }}</td>
                                 </tr>
                                 </tbody>
                             {% endfor %}
@@ -165,9 +161,9 @@
   <script>
       function search_business(){
           $.ajax({
-              url :"/building/business/manager/{{ page.number }}",
+              url :"/building/staff/check/{{ page.number }}",
               type:"POST",
-              data:{"business_name":$("#business_name").val(),"business_id":$("#business_id").val(),"corporate_representative":$("#corporate_representative").val(), "assess":$("#assess option:selected").val()},
+              data:{"staff_name":$("#staff_name").val(),"staff_id":$("#staff_id").val(),"staff_project":$("#staff_project").val(), "staff_company":$("#staff_company").val(),"project_unit":$("#project_unit").val(), "project_company":$("#project_company").val()},
               dataType : "Json",
               success:function (is_filter) {
                   if(is_filter["is_filter"]==false)
@@ -175,7 +171,7 @@
                       alert("没有找到查询的结果！");
                   }
                   else {
-                      window.location.href="/building/business/filter/"
+                      window.location.href="/building/staff/filter/"
                   }
               }
           });
@@ -184,14 +180,14 @@
       function pre_page() {
           if(({{ page.number }})>1)
           {
-              window.location.href="/building/business/manager/{{ page.number|add:-1 }}"
+              window.location.href="/building/staff/check/{{ page.number|add:-1 }}"
           }
       }
       <!-- 跳转到下一页面-->
       function next_page() {
           if(({{ page.number }})<({{ pag.num_pages }}))
           {
-              window.location.href="/building/business/manager/{{ page.number|add:1 }}"
+              window.location.href="/building/staff/check/{{ page.number|add:1 }}"
           }
       }
      <!--跳转到指定页面-->
@@ -202,18 +198,18 @@
           {
               if(pageNumbers<={{ pag.num_pages }})
               {
-                  window.location.href=("/building/business/manager/"+pageNumber)
+                  window.location.href=("/building/staff/check/"+pageNumber)
               }
               else {
-                  window.location.href="/building/business/manager/"
+                  window.location.href="/building/staff/check/"
               }
           }
           else {
-                  window.location.href="/building/business/manager/"
+                  window.location.href="/building/staff/check/"
               }
       }
     <!-- 导出成excel-->
-    var tableId = document.getElementById("business");
+    var tableId = document.getElementById("staff_check");
     function load() {
         methodtable2excel(tableId);
     }

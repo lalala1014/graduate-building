@@ -19,6 +19,9 @@ class Business(models.Model):
     RA = models.CharField(max_length=30, verbose_name="注册地址")
     business_num = models.CharField(max_length=30, verbose_name="营业执照号")
     corporate_representative = models.CharField(max_length=20, verbose_name="法人代表", default="啦啦啦")
+    pay_num = models.IntegerField(verbose_name="拖欠工资次数", default=0)
+    business_email = models.EmailField(verbose_name="企业电子邮箱", default="123456@qq.com")
+    is_business = models.CharField(max_length=10, verbose_name="营业状态", default="营业中")
 
 
 # 项目类

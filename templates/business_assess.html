@@ -1,0 +1,342 @@
+{% extends 'header.html' %}
+{% block content %}
+    {% load static %}
+    <nav class="side-navbar">
+        <!-- Sidebar Header-->
+        <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+                <h1 class="h4">{{ user.username }}</h1>
+                <p>超级管理员</p>
+            </div>
+        </div>
+        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        <ul class="list-unstyled">
+            <li><a href="/building/index"> <i class="icon-home"></i>首页 </a></li>
+            <li><a href="#businessdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>企业管理 </a>
+                <ul id="businessdropdownDropdown" class="collapse list-unstyled  show">
+                    <li><a href="/building/business/manager/">企业信息</a></li>
+                    <li><a href="/building/business/count/">企业统计</a></li>
+                    <li class="active"><a href="/building/business/assess/">企业评价</a></li>
+                </ul>
+            </li>
+            <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
+                <ul id="projectdropdownDropdown" class="collapse list-unstyled ">
+                    <li><a href="/building/project/manager/">项目信息</a></li>
+                    <li><a href="#">项目统计</a></li>
+                </ul>
+            </li>
+            <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
+                <ul id="salarydropdownDropdown" class="collapse list-unstyled">
+                    <li><a href="/building/staff/check/">劳务考勤</a></li>
+                    <li><a href="#">工资统计</a></li>
+                    <li><a href="/building/salary/check/">工资核对</a></li>
+                </ul>
+            </li>
+        </ul><span class="heading">附加功能</span>
+        <ul class="list-unstyled">
+            <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
+              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
+              <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
+              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+        </ul>
+    </nav>
+    <div class="content-inner">
+        <!-- Page Header-->
+        <header class="page-header">
+            <div class="container-fluid">
+                <h2 class="no-margin-bottom">企业信用评价</h2>
+            </div>
+        </header>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
+                <li class="breadcrumb-item active">企业信用评价            </li>
+            </ul>
+        </div>
+        <section class="tables">
+            <div class="container-fluid">
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
+                <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
+                <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
+                <br><br>
+            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="exampleModalLabel" class="modal-title">搜索企业</h4>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label>企业名称</label>
+                                        <input type="text" placeholder="企业名称" class="form-control" id="business_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>企业编号</label>
+                                        <input type="text" placeholder="企业编号" class="form-control" id="business_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>法人代表</label>
+                                        <input type="text" placeholder="法人代表" class="form-control" id="corporate_representative">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>企业信用评价</label>
+                                        <select id="assess" class="form-control col-md-6" >
+                                            <option selected></option>
+                                            <option>优</option>
+                                            <option>良</option>
+                                            <option>差</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
+                                <button type="button" class="btn btn-primary"  onclick="search_business()">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">企业详情</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="assess">
+                                        <thead>
+                                        <tr style="font-size: 13px">
+                                            <th>企业编号</th>
+                                            <th>企业名称</th>
+                                            <th>营业执照号</th>
+                                            <th>当前企业信用等级</th>
+                                            <th>资质类别</th>
+                                            <th>工资保障金余额</th>
+                                            <th>办公地址</th>
+                                            <th>处理结果</th>
+                                        </tr>
+                                        </thead>
+                                        {% for i in page %}
+                                            <tbody>
+                                            <tr id="list_{{ i.id }}">
+                                                <td>{{ i.business_id }}</td>
+                                                <td class="text-nowrap" ><a href="/building/business/information/{{ i.business_id }}/">{{ i.business_name }}</a></td>
+                                                <td>{{ i.business_num }}</td>
+                                                {% if i.assess == "优" %}
+                                                    <td style="color: green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
+                                                {% elif i.assess == "良" %}
+                                                    <td style="color: orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
+                                                {% else %}
+                                                    <td style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
+                                                {% endif %}
+                                                <td>{{ i.Qualification_class }}</td>
+                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.ensure_salary }}</td>
+                                                <td>{{ i.OA }}</td>
+                                                <td id="assess_{{ i.id }}">
+                                                    {% if i.assess == "差" and i.is_business == "营业中"%}
+                                                        <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#is_{{ i.id }}">吊销执照</button>
+                                                        <div id="is_{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                                                            <div role="document" class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 id="exampleModalLabel" class="modal-title">吊销企业执照</h4>
+                                                                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form>
+                                                                            <div class="form-group">
+                                                                                <label style="font-size: 20px">确认吊销该企业的营业执照？</label>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
+                                                                        <button type="button" class="btn btn-primary" onclick="btn(this)" data-dismiss="modal" value="{{ i.id }}">确认</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% elif i.assess == "差" %}
+                                                        <p style="color: red">&nbsp;&nbsp;已吊销</p>
+                                                    {% elif i.assess == "良" %}
+                                                        <p style="color: orange">&nbsp;&nbsp;警告</p>
+                                                    {% else %}
+                                                        <p>&nbsp;&nbsp;</p>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        {% endfor %}
+                                    </table>
+                                    <!--分页导航栏-->
+                                    <div align="center">
+                                        共<span id="totalNumber" style="color: dodgerblue">{{ pag.count }}</span>条   
+                                        当前第<span id="currentPage" style="color: black">{{ page.number }}</span>/<span id="totalPage" style="color: black">{{ pag.num_pages }}</span>页
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button id="Previous" class="btn btn-default" onclick="pre_page()">上一页</button>
+                                        <button id="Next" class="btn btn-default" onclick="next_page()">下一页</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        跳至&nbsp;<input id="pageNumber" type="number" min="1" max="100" style="width: 78px; text-align: center">&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button id="goPage" type="button" class="btn btn-primary" onclick="skip()">GO</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+    function search_business(){
+          $.ajax({
+              url :"/building/business/assess/{{ page.number }}",
+              type:"POST",
+              data:{"business_name":$("#business_name").val(),"business_id":$("#business_id").val(),"corporate_representative":$("#corporate_representative").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
+                  {
+                      alert("没有找到查询的结果！");
+                  }
+                  else {
+                      window.location.href="/building/business/assess/filter/"
+                  }
+              }
+          });
+      }
+        function btn(e) {
+            var list_id = "assess_"+ $(e).val();
+            $.ajax({
+                url :"/building/business/assess/{{ page_id }}",
+                type:"POST",
+                data:{"assess_id":$(e).val()},
+                dataType : "Json",
+                success:function (is_business) {
+                    alert(is_business["is_business"]);
+                    document.getElementById(list_id).innerHTML="<p style='color:red;'>&nbsp;&nbsp;已吊销<p>";
+                }
+            });
+        }
+        <!-- 跳转到上一页面-->
+        function pre_page() {
+            if(({{ page.number }})>1)
+            {
+                window.location.href="/building/business/assess/{{ page.number|add:-1 }}"
+            }
+        }
+        <!-- 跳转到下一页面-->
+        function next_page() {
+            if(({{ page.number}})<({{ pag.num_pages }}))
+            {
+                window.location.href="/building/business/assess/{{ page.number|add:1 }}"
+            }
+        }
+        <!--跳转到指定页面-->
+        function skip() {
+            pageNumber = $("#pageNumber").val();
+            pageNumbers = parseInt(pageNumber);
+            if(pageNumbers>0)
+            {
+                if(pageNumbers<={{ pag.num_pages }})
+                {
+                    window.location.href=("/building/business/assess/"+pageNumber)
+                }
+                else {
+                    window.location.href="/building/business/assess/"
+                }
+            }
+            else {
+                window.location.href="/building/business/assess/"
+            }
+        }
+        <!-- 导出成excel-->
+        var tableId = document.getElementById("assess");
+        function load() {
+            methodtable2excel(tableId);
+        }
+        var idTmr;
+        function  getExplorer() {
+            var explorer = window.navigator.userAgent ;
+            //ie
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if(explorer.indexOf("Chrome") >= 0){
+                return 'Chrome';
+            }
+            //Opera
+            else if(explorer.indexOf("Opera") >= 0){
+                return 'Opera';
+            }
+            //Safari
+            else if(explorer.indexOf("Safari") >= 0){
+                return 'Safari';
+            }
+        }
+        function methodtable2excel(tableid) {//整个表格拷贝到EXCEL中
+            if(getExplorer()=='ie')
+            {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");//创建AX对象excel
+
+                var oWB = oXL.Workbooks.Add();//获取workbook对象
+                var xlsheet = oWB.Worksheets(1);//激活当前sheet
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);//把表格中的内容移到TextRange中
+                sel.select();//全选TextRange中内容
+                sel.execCommand("Copy");//复制TextRange中内容
+                xlsheet.Paste();//粘贴到活动的EXCEL中
+                oXL.Visible = true;//设置excel可见属性
+
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+                } catch (e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+                    oWB.Close(savechanges = false);
+                    //xls.visible = false;
+                    oXL.Quit();
+                    oXL = null;
+                    //结束excel进程，退出完成
+                    //window.setInterval("Cleanup();",1);
+                    idTmr = window.setInterval("Cleanup();", 1);
+                }
+            }
+            else
+            {
+                tableToExcel(tableid);
+            }
+        }
+        function Cleanup() {
+            window.clearInterval(idTmr);
+            CollectGarbage();
+        }
+        var tableToExcel = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+                template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',
+                base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+                format = function(s, c) {
+                    return s.replace(/{(\w+)}/g,
+                        function(m, p) { return c[p]; }) };
+            return function(table, name) {
+                if (!table.nodeType) table = document.getElementById(table);
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })();
+    </script>
+{% endblock %}
+
