@@ -1,0 +1,143 @@
+ {% extends 'header.html' %}
+{% block content %}
+     {% load static %}
+<!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">{{ user.username }}</h1>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+            <ul class="list-unstyled">
+                <li><a href="/building/index"> <i class="icon-home"></i>首页 </a></li>
+                <li><a href="#businessdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>企业管理 </a>
+                    <ul id="businessdropdownDropdown" class="collapse list-unstyled">
+                        <li><a href="/building/business/manager/">企业信息</a></li>
+                        <li><a href="/building/business/count/">企业统计</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
+                    <ul id="projectdropdownDropdown" class="collapse list-unstyled">
+                        <li><a href="/building/project/manager/">项目信息</a></li>
+                        <li><a href="/building/project/count/">项目统计</a></li>
+                    </ul>
+                </li>
+                <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
+                    <ul id="salarydropdownDropdown" class="collapse list-unstyled ">
+                        <li><a href="/building/staff/check/">劳务考勤</a></li>
+                        <li><a href="#">工资统计</a></li>
+                        <li><a href="/building/salary/check/">工资核对</a></li>
+                    </ul>
+                </li>
+          </ul><span class="heading">附加功能</span>
+          <ul class="list-unstyled">
+            <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
+              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
+              <li class="active"> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
+              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">账户日志</h2>
+            </div>
+          </header>
+          <!-- Breadcrumb-->
+          <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
+              <li class="breadcrumb-item active">账户日志            </li>
+            </ul>
+          </div>
+          <section class="tables">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">账户日志</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped" id="project">
+                          <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>#</th>
+                                <th></th>
+                                <th>上一次登录时间</th>
+                            </tr>
+                          </thead>
+                            {% for i in page %}
+                                <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <td>{{ i.id }}</td>
+                                    <th></th>
+                                    <td class="text-nowrap" >{{ i.time }}</td>
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                      <!--分页导航栏-->
+                          <div align="center">
+                              共<span id="totalNumber" style="color: dodgerblue">{{ pag.count }}</span>条   
+                              当前第<span id="currentPage" style="color: black">{{ page.number }}</span>/<span id="totalPage" style="color: black">{{ pag.num_pages }}</span>页
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button id="Previous" class="btn btn-default" onclick="pre_page()">上一页</button>
+                              <button id="Next" class="btn btn-default" onclick="next_page()">下一页</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <br><br>跳至&nbsp;<input id="pageNumber" type="number" min="1" max="100" style="width: 78px; text-align: center">&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button id="goPage" type="button" class="btn btn-primary" onclick="skip()">GO</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+        </div>
+  <script>
+     {#<!-- 跳转到上一页面-->#}
+      function pre_page() {
+          if(({{ page.number }})>1)
+          {
+              window.location.href="/building/daily/{{ page.number|add:-1 }}"
+          }
+      }
+      <!-- 跳转到下一页面-->
+      function next_page() {
+          if(({{ page.number}})<({{ pag.num_pages }}))
+          {
+              window.location.href="/building/daily/{{ page.number|add:1 }}"
+          }
+      }
+     <!--跳转到指定页面-->
+     function skip() {
+         pageNumber = $("#pageNumber").val();
+         pageNumbers = parseInt(pageNumber);
+         if(pageNumbers>0)
+         {
+             if(pageNumbers<={{ pag.num_pages }})
+             {
+                 window.location.href=("/building/daily/"+pageNumber)
+             }
+             else {
+                 window.location.href="/building/daily/"
+             }
+         }
+         else {
+             window.location.href="/building/daily/"
+         }
+      }
+</script>
+{% endblock %}

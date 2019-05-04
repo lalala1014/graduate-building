@@ -80,5 +80,8 @@ class Salary(models.Model):
     is_manager = models.CharField(max_length=5, verbose_name="市建委核对", default="未核对")
 
 
-
-
+# 日志表
+class Daily(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="用户名")
+    time = models.DateTimeField(auto_now=True, verbose_name="登录时间")

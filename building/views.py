@@ -23,6 +23,9 @@ def login_user(request):
         if manager:   # 判断用户对象是否存在
             if request.session['check_code'] == code:
                 login(request, manager)   # 用户登录
+                user = User.objects.get(username=username)
+                d = Daily.objects.create(user=user, time=user.last_login)
+                d.save()
                 return JsonResponse({"isLogin": True})
             else:
                 return JsonResponse({"isLogin": "验证码错误"})
@@ -81,6 +84,23 @@ def settings(request):
             return JsonResponse({"is_alter": "修改成功！"})
 
 
+# 日志
+@login_required
+@csrf_exempt
+def daily(request, page):
+    if page == "":
+        pages = 1
+    else:
+        pages = int(page)
+    if request.method == "GET":
+        dailys = Daily.objects.filter(user=request.user).order_by("id")
+        pag = paginator.Paginator(dailys, 2)
+        pages = pag.page(pages)
+        return render(request, "daily.html", {"page": pages, "pag": pag, "user": request.user})
+    elif request.method == "POST":
+        return render(request, "daily.html", {"user": request.user})
+
+
 # 首页
 @login_required
 def index(request):
@@ -115,7 +135,7 @@ def business_manage(request, page):
     else:
         pages = int(page)
     if request.method == "GET":
-        pag = paginator.Paginator(business, 1)
+        pag = paginator.Paginator(business, 2)
         pages = pag.page(pages)
         return render(request, "business_manage.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
@@ -152,8 +172,8 @@ def business_filter(request, page):
         pages = int(page)
     search_business = Business.objects.filter(id__in=request.session["search_business"]).order_by("id")
     if request.method == "GET":
-        pag = paginator.Paginator(search_business, 1)
-        pages = pag.page(pages)
+        pag = paginator.Paginator(search_business, 1)    # 实例化分页对象
+        pages = pag.page(pages)    # 取pages页的内容
         return render(request, "business_filter.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         return render(request, "business_filter.html")
@@ -172,6 +192,7 @@ def business_information(request, business_id):
 # TODO
 # 企业统计
 @login_required
+@csrf_exempt   # 跨站请求伪造
 def business_count(request):
     if request.method == "GET":
         return render(request, "business_count.html", {"user": request.user})
@@ -190,7 +211,7 @@ def business_assess(request, page):
     else:
         pages = int(page)
     if request.method == "GET":
-        pag = paginator.Paginator(business, 2)
+        pag = paginator.Paginator(business, 3)
         pages = pag.page(pages)
         for i in pages:
             if i.pay_num >= 3:
@@ -328,6 +349,17 @@ def project_filter(request, page):
         return render(request, "project_filter.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         return render(request, "project_filter.html")
+
+
+# TODO
+# 项目统计
+@login_required
+@csrf_exempt   # 跨站请求伪造
+def project_count(request):
+    if request.method == "GET":
+        return render(request, "project_count.html", {"user": request.user})
+    elif request.method == "POST":
+        return render(request, "project_count.html")
 
 # ********************************************** 劳 务 ******************************************************
 

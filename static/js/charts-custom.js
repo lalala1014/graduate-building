@@ -259,42 +259,42 @@ window.onload=function () {
     });
 
 
-    // ------------------------------------------------------- //
-    // Pie Chart
-    // ------------------------------------------------------ //
-    var PIECHARTEXMPLE    = $('#pieChartExample');
-    var pieChartExample = new Chart(PIECHARTEXMPLE, {
-        type: 'pie',
-        data: {
-            labels: [
-                "A",
-                "B",
-                "C",
-                "D"
-            ],
-            datasets: [
-                {
-                    data: [300, 50, 100, 80],
-                    borderWidth: 0,
-                    backgroundColor: [
-                        '#44b2d7',
-                        "#59c2e6",
-                        "#71d1f2",
-                        "#96e5ff"
-                    ],
-                    hoverBackgroundColor: [
-                        '#44b2d7',
-                        "#59c2e6",
-                        "#71d1f2",
-                        "#96e5ff"
-                    ]
-                }]
-            }
-    });
-
-    var pieChartExample = {
-        responsive: true
-    };
+    // // ------------------------------------------------------- //
+    // // Pie Chart
+    // // ------------------------------------------------------ //
+    // var PIECHARTEXMPLE    = $('#pieChartExample');
+    // var pieChartExample = new Chart(PIECHARTEXMPLE, {
+    //     type: 'pie',
+    //     data: {
+    //         labels: [
+    //             "A",
+    //             "B",
+    //             "C",
+    //             "D"
+    //         ],
+    //         datasets: [
+    //             {
+    //                 data: [300, 50, 100, 80],
+    //                 borderWidth: 0,
+    //                 backgroundColor: [
+    //                     '#44b2d7',
+    //                     "#59c2e6",
+    //                     "#71d1f2",
+    //                     "#96e5ff"
+    //                 ],
+    //                 hoverBackgroundColor: [
+    //                     '#44b2d7',
+    //                     "#59c2e6",
+    //                     "#71d1f2",
+    //                     "#96e5ff"
+    //                 ]
+    //             }]
+    //         }
+    // });
+    //
+    // var pieChartExample = {
+    //     responsive: true
+    // };
 
 
     // ------------------------------------------------------- //

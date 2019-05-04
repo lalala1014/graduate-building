@@ -8,7 +8,6 @@
             <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
               <h1 class="h4">{{ user.username }}</h1>
-                <p>超级管理员</p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -24,7 +23,7 @@
                 <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
                     <ul id="projectdropdownDropdown" class="collapse list-unstyled ">
                         <li><a href="/building/project/manager/">项目信息</a></li>
-                        <li><a href="#">项目统计</a></li>
+                        <li><a href="/building/project/count/">项目统计</a></li>
                     </ul>
                 </li>
                 <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
@@ -38,7 +37,7 @@
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
               <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
-              <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
+              <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
               <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
@@ -60,7 +59,8 @@
             <div class="container-fluid">
                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
-                <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
+                <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input id="style" type="text" name="loginUsername" onclick="style(this)" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<a  href="#"><i class="icon-search"></i></a>
                 <br><br>
                 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
@@ -162,7 +162,12 @@
           </section>
 
         </div>
-  <script>
+    <script>
+        {#  设置模糊查询的点击后css样式#}
+        function style(e) {
+            id = "#"+e.id;
+            $(id).css("background-color","black");
+        }
       function search_business(){
           $.ajax({
               url :"/building/business/manager/{{ page.number }}",
