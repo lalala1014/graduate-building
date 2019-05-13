@@ -33,8 +33,8 @@ class Project(models.Model):
     project_region = models.CharField(max_length=20, verbose_name="所属区域")
     project_area = models.FloatField(verbose_name="建筑面积")
     project_plan = models.CharField(max_length=10, verbose_name="工程进度", default="审批未开工")  # 工程进度有：审批未开工、在建、停工、竣工
-    project_company = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name="建筑企业")
-    project_unit = models.CharField(max_length=30, verbose_name="建筑单位")
+    project_company = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name="建筑企业", related_name="company")
+    project_unit = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name="建筑单位", related_name="unit")
     project_manager = models.CharField(max_length=20, verbose_name="项目负责人")
 
 
@@ -73,7 +73,7 @@ class Salary(models.Model):
     staff = models.ForeignKey(Staffs, on_delete=models.CASCADE, verbose_name="员工")
     money = models.FloatField(verbose_name="所得工资", default=0)
     is_get = models.CharField(max_length=10, verbose_name="是否结算", default="否")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name="参与项目",default=1)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name="参与项目", default=1)
     is_staff = models.CharField(max_length=5, verbose_name="劳务人员核对", default="未核对")
     is_unit = models.CharField(max_length=5, verbose_name="建筑单位核对", default="未核对")
     is_company = models.CharField(max_length=5, verbose_name="建筑企业核对", default="未核对")
@@ -85,3 +85,4 @@ class Daily(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="用户名")
     time = models.DateTimeField(auto_now=True, verbose_name="登录时间")
+    ip = models.GenericIPAddressField(verbose_name="登录的IP地址", default="127.0.0.1")

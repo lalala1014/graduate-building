@@ -21,14 +21,14 @@
                     </ul>
                 </li>
                 <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
-                    <ul id="projectdropdownDropdown" class="collapse list-unstyled show">
-                        <li class="active"><a href="/building/project/manager/">项目信息</a></li>
+                    <ul id="projectdropdownDropdown" class="collapse list-unstyled ">
+                        <li><a href="/building/project/manager/">项目信息</a></li>
                         <li><a href="/building/project/count/">项目统计</a></li>
                     </ul>
                 </li>
                 <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
-                    <ul id="salarydropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="/building/staff/check/">劳务考勤</a></li>
+                    <ul id="salarydropdownDropdown" class="collapse list-unstyled show">
+                        <li class="active"><a href="/building/staff/check/">劳务考勤</a></li>
                         <li><a href="#">工资统计</a></li>
                         <li><a href="/building/salary/check/">工资核对</a></li>
                     </ul>
@@ -43,14 +43,14 @@
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">项目管理</h2>
+              <h2 class="no-margin-bottom">劳务管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
-              <li class="breadcrumb-item active">项目信息            </li>
+              <li class="breadcrumb-item active">劳务员工考勤信息            </li>
             </ul>
           </div>
           <section class="tables">
@@ -58,68 +58,48 @@
                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="float: right"><input id="search_name" type="text"  style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="float: right">
+                <input id="search_name" type="text" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
             </span><br><br>
                 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 id="exampleModalLabel" class="modal-title">搜索项目</h4>
+                                <h4 id="exampleModalLabel" class="modal-title">搜索劳务员工</h4>
                                 <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label>项目名称</label>
-                                        <input type="text" placeholder="项目名称" class="form-control" id="project_name">
+                                        <label>员工名称</label>
+                                        <input type="text" placeholder="员工名称" class="form-control" id="staff_name">
                                     </div>
                                     <div class="form-group">
-                                        <label>项目编号</label>
-                                        <input type="text" placeholder="项目编号" class="form-control" id="project_id">
+                                        <label>员工编号</label>
+                                        <input type="text" placeholder="员工编号" class="form-control" id="staff_id">
                                     </div>
                                     <div class="form-group">
-                                        <label>工程进度</label>
-                                        <select id="plan" class="form-control col-md-6" >
-                                            <option selected></option>
-                                            <option>审批未开工</option>
-                                            <option>在建</option>
-                                            <option>停工</option>
-                                            <option>竣工</option>
-                                        </select>
+                                        <label>所属劳务公司</label>
+                                        <input type="text" placeholder="所属劳务公司" class="form-control" id="staff_company">
                                     </div>
                                     <div class="form-group">
-                                        <label>所属区域</label>
-                                        <select id="region" class="form-control col-md-6" >
-                                            <option selected></option>
-                                            <option>二七区</option>
-                                            <option>中原区</option>
-                                            <option>金水区</option>
-                                            <option>新郑市</option>
-                                            <option>惠济区</option>
-                                            <option>管城回族区</option>
-                                            <option>上街区</option>
-                                            <option>登封市</option>
-                                            <option>新密市</option>
-                                            <option>巩义市</option>
-                                            <option>中牟县</option>
-                                            <option>高新区</option>
-                                            <option>荥阳市</option>
-                                        </select>
+                                        <label>参与项目</label>
+                                        <input type="text" placeholder="参与项目" class="form-control" id="staff_project">
                                     </div>
                                     <div class="form-group">
-                                        <label>建筑单位</label>
-                                        <input type="text" placeholder="建筑单位" class="form-control" id="project_unit">
+                                        <label>项目建设单位</label>
+                                        <input type="text" placeholder="项目建设单位" class="form-control" id="project_unit">
                                     </div>
                                     <div class="form-group">
-                                        <label>建筑企业</label>
-                                        <input type="text" placeholder="建筑企业" class="form-control" id="project_company">
+                                        <label>项目建设企业</label>
+                                        <input type="text" placeholder="项目建设企业" class="form-control" id="project_company">
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
-                                <button type="button" class="btn btn-primary" onclick="search_project()">搜索</button>
+                                <button type="button" class="btn btn-primary"  onclick="search_business()">搜索</button>
                             </div>
                         </div>
                     </div>
@@ -128,39 +108,37 @@
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">项目信息</h3>
+                      <h3 class="h4">企业信息</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table table-striped" id="project">
+                        <table class="table table-striped" id="staff_check">
                           <thead>
                             <tr>
-                                <th>工程编号</th>
-                                <th>工程名称</th>
-                                <th>工程负责人</th>
-                                <th>建筑单位</th>
-                                <th>建筑企业</th>
-                                <th>工程进度</th>
-                                <th>所属区域</th>
-                                <th>工程地点</th>
+                                <th>员工编号</th>
+                                <th>员工名称</th>
+                                <th>所属劳务公司</th>
+                                <th>参与项目</th>
+                                <th>项目建设单位</th>
+                                <th>项目建设企业</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考勤时间</th>
                             </tr>
                           </thead>
                             {% for i in page %}
                                 <tbody>
                                 <tr>
-                                    <td>{{ i.pro_id }}</td>
-                                    <td class="text-nowrap" ><a href="/building/project/information/{{ i.pro_id }}/">{{ i.project_name }}</a></td>
-                                    <td>{{ i.project_manager }}</td>
-                                    <td>{{ i.project_unit }}</td>
-                                    <td>{{ i.project_company.business_name }}</td>
-                                    <td>{{ i.project_plan }}</td>
-                                    <td>{{ i.project_region }}</td>
-                                    <td>{{ i.project_address }}</td>
+                                    <td>{{ i.staff.staff_id }}</td>
+                                    <td class="text-nowrap" ><a href="/building/staff/information/{{ i.staff.staff_id }}/">{{ i.staff.staff_name }}</a></td>
+                                    <td>{{ i.staff.company.ser_name }}</td>
+                                    <td>&nbsp;{{ i.project.project_name }}</td>
+                                    <td>&nbsp;&nbsp;{{ i.project.project_unit }}</td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.project.project_company.business_name }}</td>
+                                    <td>{{ i.time }}</td>
                                 </tr>
                                 </tbody>
                             {% endfor %}
                         </table>
-                      <!--分页导航栏-->
+                       <!--分页导航栏-->
                           <div align="center">
                               共<span id="totalNumber" style="color: dodgerblue">{{ pag.count }}</span>条   
                               当前第<span id="currentPage" style="color: black">{{ page.number }}</span>/<span id="totalPage" style="color: black">{{ pag.num_pages }}</span>页
@@ -181,9 +159,9 @@
 
         </div>
   <script>
-  function search_filter() {
-            $.ajax({
-              url :"/building/project/manager/{{ page.number }}",
+      function search_filter() {
+          $.ajax({
+              url :"/building/staff/check/filter/{{ page.number }}",
               type:"POST",
               data:{"filter":$("#search_name").val()},
               dataType : "Json",
@@ -193,62 +171,62 @@
                       alert("没有找到查询的结果！");
                   }
                   else {
-                      window.location.href="/building/project/filter/"
+                      window.location.href="/building/staff/check/filter/"
                   }
               }
           });
-        }
-    function search_project(){
-            $.ajax({
-                url :"/building/project/manager/{{ page.number }}",
-                type:"POST",
-				data:{"project_name":$("#project_name").val(),"project_id":$("#project_id").val(),"project_unit":$("#project_unit").val(),"project_company":$("#project_company").val(), "plan":$("#plan option:selected").val(), "region":$("#region option:selected").val()},
-                dataType : "Json",
-                success:function (is_filter) {
-                    if(is_filter["is_filter"]==false)
+      }
+      function search_business(){
+          $.ajax({
+              url :"/building/staff/check/filter/{{ page.number }}",
+              type:"POST",
+              data:{"staff_name":$("#staff_name").val(),"staff_id":$("#staff_id").val(),"staff_project":$("#staff_project").val(), "staff_company":$("#staff_company").val(),"project_unit":$("#project_unit").val(), "project_company":$("#project_company").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
                   {
                       alert("没有找到查询的结果！");
                   }
                   else {
-                      window.location.href="/building/project/filter/"
+                      window.location.href="/building/staff/check/filter/"
                   }
-                },
-            });
-        };
-     <!-- 跳转到上一页面-->
+              }
+          });
+      }
+    <!-- 跳转到上一页面-->
       function pre_page() {
           if(({{ page.number }})>1)
           {
-              window.location.href="/building/project/manager/{{ page.number|add:-1 }}"
+              window.location.href="/building/staff/check/filter/{{ page.number|add:-1 }}"
           }
       }
       <!-- 跳转到下一页面-->
       function next_page() {
-          if(({{ page.number}})<({{ pag.num_pages }}))
+          if(({{ page.number }})<({{ pag.num_pages }}))
           {
-              window.location.href="/building/project/manager/{{ page.number|add:1 }}"
+              window.location.href="/building/staff/check/filter/{{ page.number|add:1 }}"
           }
       }
      <!--跳转到指定页面-->
      function skip() {
-         pageNumber = $("#pageNumber").val();
-         pageNumbers = parseInt(pageNumber);
-         if(pageNumbers>0)
-         {
-             if(pageNumbers<={{ pag.num_pages }})
-             {
-                 window.location.href=("/building/project/manager/"+pageNumber)
-             }
-             else {
-                 window.location.href="/building/project/manager/"
-             }
-         }
-         else {
-             window.location.href="/building/project/manager/"
-         }
+          pageNumber = $("#pageNumber").val();
+          pageNumbers = parseInt(pageNumber);
+          if(pageNumbers>0)
+          {
+              if(pageNumbers<={{ pag.num_pages }})
+              {
+                  window.location.href=("/building/staff/check/filter/"+pageNumber)
+              }
+              else {
+                  window.location.href="/building/staff/check/filter/"
+              }
+          }
+          else {
+                  window.location.href="/building/staff/check/filter/"
+              }
       }
     <!-- 导出成excel-->
-    var tableId = document.getElementById("project");
+    var tableId = document.getElementById("staff_check");
     function load() {
         methodtable2excel(tableId);
     }
@@ -329,4 +307,4 @@
         }
     })();
 </script>
-{% endblock %}
+ {% endblock %}

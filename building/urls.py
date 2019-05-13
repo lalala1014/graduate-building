@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'settings/$', views.settings),      # 个人资料设置
     url(r'^salary/check/(\d*)$', views.salary_check),     # 员工工资核对
     url(r'^staff/check/(\d*)$', views.staff_check),    # 员工考勤信息
+    url(r'^staff/check/filter/(\d*)$', views.staff_check_filter),    # 员工考勤查询结果
 ]

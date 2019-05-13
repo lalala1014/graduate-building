@@ -36,16 +36,14 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">企业信息查询</h2>
+              <h2 class="no-margin-bottom">劳务管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
@@ -60,7 +58,10 @@
                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
-                <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="float: right">
+                <input id="search_name" type="text" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
+            </span><br><br>
                 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                         <div class="modal-content">
@@ -158,6 +159,23 @@
 
         </div>
   <script>
+      function search_filter() {
+          $.ajax({
+              url :"/building/staff/check/{{ page.number }}",
+              type:"POST",
+              data:{"filter":$("#search_name").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
+                  {
+                      alert("没有找到查询的结果！");
+                  }
+                  else {
+                      window.location.href="/building/staff/check/filter/"
+                  }
+              }
+          });
+      }
       function search_business(){
           $.ajax({
               url :"/building/staff/check/{{ page.number }}",
@@ -170,7 +188,7 @@
                       alert("没有找到查询的结果！");
                   }
                   else {
-                      window.location.href="/building/staff/filter/"
+                      window.location.href="/building/staff/check/filter/"
                   }
               }
           });

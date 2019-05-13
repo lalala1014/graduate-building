@@ -35,16 +35,14 @@
         </ul><span class="heading">附加功能</span>
         <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
         </ul>
     </nav>
     <div class="content-inner">
         <!-- Page Header-->
         <header class="page-header">
             <div class="container-fluid">
-                <h2 class="no-margin-bottom">企业信用评价</h2>
+                <h2 class="no-margin-bottom">企业管理</h2>
             </div>
         </header>
         <!-- Breadcrumb-->
@@ -59,7 +57,9 @@
                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
-                <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="float: right"><input id="search_name" type="text" name="search_name"  style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
+            </span><br><br>
             <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                     <div role="document" class="modal-dialog">
                         <div class="modal-content">
@@ -113,6 +113,7 @@
                                             <th>企业编号</th>
                                             <th>企业名称</th>
                                             <th>营业执照号</th>
+                                            <th>法人代表</th>
                                             <th>当前企业信用等级</th>
                                             <th>资质类别</th>
                                             <th>工资保障金余额</th>
@@ -126,6 +127,7 @@
                                                 <td>{{ i.business_id }}</td>
                                                 <td class="text-nowrap" ><a href="/building/business/information/{{ i.business_id }}/">{{ i.business_name }}</a></td>
                                                 <td>{{ i.business_num }}</td>
+                                                <td>{{ i.corporate_representative }}</td>
                                                 {% if i.assess == "优" %}
                                                     <td style="color: green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
                                                 {% elif i.assess == "良" %}
@@ -193,6 +195,24 @@
 
     </div>
     <script>
+{#    模糊查询   #}
+    function search_filter() {
+            $.ajax({
+              url :"/building/business/assess/{{ page.number }}",
+              type:"POST",
+              data:{"filter":$("#search_name").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
+                  {
+                      alert("没有找到查询的结果！");
+                  }
+                  else {
+                      window.location.href="/building/business/assess/filter/"
+                  }
+              }
+          });
+        }
     function search_business(){
           $.ajax({
               url :"/building/business/assess/{{ page.number }}",

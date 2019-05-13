@@ -36,16 +36,14 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
-          </ul>
+          </ul>s
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">企业统计</h2>
+              <h2 class="no-margin-bottom">企业管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
@@ -57,19 +55,30 @@
           </div>
           <section class="tables">
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">企业评价等级</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">企业评价等级</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="pieChartExample"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <canvas id="pieChartExample"></canvas>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">资质类别</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="classChartExample"></canvas>
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
                 </div>
 
-              </div>
             </div>
           </section>
 
@@ -94,7 +103,7 @@
                     ],
                     datasets: [
                         {
-                            data: [300, 50, 100],
+                            data: [{{ perfect.count }}, {{ good.count }}, {{ bad.count }}],
                             borderWidth: 0,
                             backgroundColor: [
                                 '#f47920',
@@ -112,5 +121,36 @@
 
             var pieChartExample = {
                 responsive: true
-            };}</script>
+            };
+        // ------------------------------------------------------- //
+            // Pie Chart
+            // ------------------------------------------------------ //
+            var CLASSCHARTEXAMPLE    = $('#classChartExample');
+            var classChartExample = new Chart(CLASSCHARTEXAMPLE, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "总承包企业",
+                        "建设单位",
+                    ],
+                    datasets: [
+                        {
+                            data: [{{ chengbao.count }}, {{ unit.count }}],
+                            borderWidth: 0,
+                            backgroundColor: [
+                                '#f15a22',
+                                "#ffc20e",
+                            ],
+                            hoverBackgroundColor: [
+                               '#f15a22',
+                                "#ffc20e",
+                            ]
+                        }]
+                }
+            });
+
+            var classChartExample = {
+                responsive: true
+            };
+        }</script>
  {% endblock %}

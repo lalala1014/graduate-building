@@ -35,9 +35,7 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li class="active"> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
         <div class="content-inner">
@@ -71,7 +69,8 @@
                                 <th></th>
                                 <th>#</th>
                                 <th></th>
-                                <th>上一次登录时间</th>
+                                <th>登录时间</th>
+                                <th>登录IP地址</th>
                             </tr>
                           </thead>
                             {% for i in page %}
@@ -82,6 +81,7 @@
                                     <td>{{ i.id }}</td>
                                     <th></th>
                                     <td class="text-nowrap" >{{ i.time }}</td>
+                                    <td>&nbsp;&nbsp;{{ i.ip }}</td>
                                 </tr>
                                 </tbody>
                             {% endfor %}

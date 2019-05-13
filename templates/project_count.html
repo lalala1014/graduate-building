@@ -36,16 +36,14 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">项目统计</h2>
+              <h2 class="no-margin-bottom">项目管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
@@ -56,21 +54,34 @@
             </ul>
           </div>
           <section class="tables">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">企业评价等级</h3>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="pieChartExample"></canvas>
-                    </div>
-                  </div>
-                </div>
+              <div class="container-fluid">
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <div class="card">
+                              <div class="card-header d-flex align-items-center">
+                                  <h3 class="h4">项目进度统计</h3>
+                              </div>
+                              <div class="card-body">
+                                  <canvas id="pieChartExample"></canvas>
+                              </div>
+                          </div>
+                      </div>
 
+                  </div>
+                  <div class="row">
+                      <!-- Bar Charts-->
+                      <div class="col-lg-8">
+                          <div class="bar-chart-example card">
+                              <div class="card-header d-flex align-items-center">
+                                  <h3 class="h4">项目区域统计</h3>
+                              </div>
+                              <div class="card-body">
+                                  <canvas id="barChartExample"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
               </div>
-            </div>
           </section>
 
         </div>
@@ -88,23 +99,26 @@
                 type: 'pie',
                 data: {
                     labels: [
-                        "优",
-                        "良",
-                        "差"
+                        "审批未开工",
+                        "在建",
+                        "停工",
+                        "竣工"
                     ],
                     datasets: [
                         {
-                            data: [300, 50, 100],
+                            data: [{{ no_work.count }}, {{ working.count }}, {{ stop_work.count }},{{ finish_work.count }}],
                             borderWidth: 0,
                             backgroundColor: [
-                                '#f47920',
-                                "#8f4b2e",
-                                "#deab8a"
+                                '#444693',
+                                "#2b4490",
+                                "#2a5caa",
+                                '#426ab3'
                             ],
                             hoverBackgroundColor: [
-                                '#f47920',
-                                "#8f4b2e",
-                                "#deab8a",
+                                '#444693',
+                                "#2b4490",
+                                "#2a5caa",
+                                '#426ab3'
                             ]
                         }]
                 }
@@ -112,5 +126,85 @@
 
             var pieChartExample = {
                 responsive: true
-            };}</script>
+            };
+             // ------------------------------------------------------- //
+        // // Bar Chart
+        // // ------------------------------------------------------ //
+        var BARCHARTEXMPLE    = $('#barChartExample');
+        var barChartExample = new Chart(BARCHARTEXMPLE, {
+            type: 'bar',
+            options: {
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#eee'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#eee'
+                        }
+                    }]
+                },
+            },
+            data: {
+                labels: ["金水区", "二七区", "中原区","新郑市","惠济区","管城回族区","上街区","登封市","新密市","巩义市","中牟县","高新区","荥阳市"],
+                datasets: [
+                    {
+                        label: "项目数",
+                        backgroundColor: [
+                            '#1d953f',
+                            '#77ac98',
+                            '#007d65',
+                            '#84bf96',
+                            '#45b97c',
+                            '#225a1f',
+                            '#367459',
+                            '#007947',
+                            '#40835e',
+                            '#2b6447',
+                            '#005831',
+                            '#006c54',
+                            '#375830'
+                        ],
+                        hoverBackgroundColor: [
+                            '#1d953f',
+                            '#77ac98',
+                            '#007d65',
+                            '#84bf96',
+                            '#45b97c',
+                            '#225a1f',
+                            '#367459',
+                            '#007947',
+                            '#40835e',
+                            '#2b6447',
+                            '#005831',
+                            '#006c54',
+                            '#375830'
+                        ],
+                        borderColor: [
+                            '#1d953f',
+                            '#77ac98',
+                            '#007d65',
+                            '#84bf96',
+                            '#45b97c',
+                            '#225a1f',
+                            '#367459',
+                            '#007947',
+                            '#40835e',
+                            '#2b6447',
+                            '#005831',
+                            '#006c54',
+                            '#375830'
+                        ],
+                        borderWidth: 1,
+                        data: [{{ jinshui.count }}, {{ erqi.count }}, {{ zhongyuan.count }},{{ xinzheng.count }},{{ huiji.count }},{{ guancheng.count }},{{ shangjie.count }},{{ dengfeng.count }},{{ gongyi.count }},{{ zhongmou.count }},{{ gaoxin.count }},{{ xingyang.count }}],
+                    }
+                ]
+            }
+        });
+        }
+    </script>
  {% endblock %}

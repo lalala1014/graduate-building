@@ -36,16 +36,14 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">企业信用评价</h2>
+              <h2 class="no-margin-bottom">企业管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
@@ -74,6 +72,7 @@
                                             <th>企业编号</th>
                                             <th>企业名称</th>
                                             <th>营业执照号</th>
+                                            <th>法人代表</th>
                                             <th>当前企业信用等级</th>
                                             <th>资质类别</th>
                                             <th>工资保障金余额</th>
@@ -87,6 +86,7 @@
                                                 <td>{{ i.business_id }}</td>
                                                 <td class="text-nowrap" ><a href="/building/business/information/{{ i.business_id }}/">{{ i.business_name }}</a></td>
                                                 <td>{{ i.business_num }}</td>
+                                            <td>{{ i.corporate_representative }}</td>
                                                 {% if i.assess == "优" %}
                                                     <td style="color: green">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.assess }}</td>
                                                 {% elif i.assess == "良" %}

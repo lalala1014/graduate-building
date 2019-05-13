@@ -36,16 +36,14 @@
           </ul><span class="heading">附加功能</span>
           <ul class="list-unstyled">
             <li> <a href="/building/settings/"> <i class="icon-flask"></i>账户设置 </a></li>
-              <li> <a href="#"> <i class="icon-mail"></i>电子邮箱 </a></li>
               <li> <a href="/building/daily/"> <i class="icon-screen"></i>日志 </a></li>
-              <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
           </ul>
         </nav>
         <div class="content-inner">
           <!-- Page Header-->
           <header class="page-header">
             <div class="container-fluid">
-              <h2 class="no-margin-bottom">工资信息</h2>
+              <h2 class="no-margin-bottom">劳务管理</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
@@ -57,9 +55,57 @@
           </div>
           <section class="tables">
             <div class="container-fluid">
+            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">搜索 </button>
             <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="float: right">
+                <input id="style" type="text" name="search_name" onclick="stylea(this)" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;
+                <button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
+            </span>
             <br><br>
+             <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="exampleModalLabel" class="modal-title">搜索</h4>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label>员工名称</label>
+                                        <input type="text" placeholder="员工名称" class="form-control" id="staff_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>员工编号</label>
+                                        <input type="text" placeholder="员工编号" class="form-control" id="staff_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>所属劳务公司</label>
+                                        <input type="text" placeholder="所属劳务公司" class="form-control" id="staff_company">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>参与项目</label>
+                                        <input type="text" placeholder="参与项目" class="form-control" id="staff_project">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>市建委核对</label>
+                                        <select id="is_manager" class="form-control col-md-6" >
+                                            <option selected></option>
+                                            <option>已核对</option>
+                                            <option>未核对</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
+                                <button type="button" class="btn btn-primary"  onclick="search_salary()">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="card">
@@ -98,7 +144,7 @@
                                     <td>{{ i.is_company }}</td>
                                     <td>{{ i.is_unit }}</td>
                                 <td id="check_{{ i.id }}">
-                                    {% if i.is_manager != "已核对" %}
+                                    {% if i.is_manager != "已核对" and i.is_unit == "已核对"%}
                                     <button  class="btn btn-success btn-sm" data-toggle="modal" data-target="#is_{{ i.id }}">确认核对</button>
                                         <div id="is_{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                             <div role="document" class="modal-dialog">
@@ -121,6 +167,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    {% elif i.is_manager != "已核对" and i.is_unit == "未核对"%}
+                                        <button  class="btn btn-dark btn-sm" disabled>确认核对</button>
                                     {% else %}
                                     {{ i.is_manager }}
                                     {% endif %}
@@ -151,6 +199,23 @@
 
         </div>
   <script>
+  function search_salary() {
+      $.ajax({
+              url :"/building/salary/check/{{ page_id }}",
+              type:"POST",
+              data:{"staff_name":$("#staff_name").val(), "staff_id":$("#staff_id").val(), "staff_company":$("#staff_company").val(), "staff_project":$("#staff_project").val(), "is_manager":$("#is_manager option:selected").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
+                  {
+                      alert("没有找到查询的结果！");
+                  }
+                  else {
+                      window.location.href="/building/salary/filter/"
+                  }
+              }
+          });
+  }
       function btn(e) {
           $.ajax({
               url :"/building/salary/check/{{ page_id }}",
