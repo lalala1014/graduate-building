@@ -44,6 +44,7 @@ class Services(models.Model):
     ser_id = models.CharField(verbose_name="劳务公司号", unique=True, max_length=20)
     ser_name = models.CharField(verbose_name="劳务公司名称", max_length=40, null=False)
     ser_manager = models.CharField(verbose_name="劳务公司管理人", max_length=15)
+    ser_text = models.CharField(verbose_name="劳务公司简介", max_length=200, default="")
 
 
 # 劳务人员类

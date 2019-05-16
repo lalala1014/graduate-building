@@ -430,7 +430,21 @@ def project_count(request):
         zhongmou = Project.objects.filter(project_region="中牟县").order_by("id")
         gaoxin = Project.objects.filter(project_region="高新区").order_by("id")
         xingyang = Project.objects.filter(project_region="荥阳市").order_by("id")
-        return render(request, "project_count.html", {"user": request.user, "no_work": no_work, "stop_work": stop_work, "finish_work": finish_work, "working": working,
+        # 项目面积
+        all_project = Project.objects.all()
+        big = []
+        middle = []
+        small = []
+        for i in all_project:
+            if i.project_area > 10000:
+                big.append(i)
+            elif i.project_area > 5000:
+                middle.append(i)
+            else:
+                small.append(i)
+        return render(request, "project_count.html", {"user": request.user,
+                                                      "big_count": len(big), "middle_count": len(middle), "small_count": len(small),
+                                                      "no_work": no_work, "stop_work": stop_work, "finish_work": finish_work, "working": working,
                                                       "jinshui": jinshui, "erqi": erqi, "xinzheng": xinzheng, "huiji": huiji, "zhongyuan": zhongyuan, "guancheng": guancheng,
                                                       "xingyang": xingyang, "gaoxin": gaoxin, "zhongmou": zhongmou, "xinmi": xinmi, "dengfeng": dengfeng, "shangjie": shangjie, "gongyi": gongyi})
     elif request.method == "POST":
@@ -450,7 +464,7 @@ def staff_check(request, page):
     else:
         pages = int(page)
     if request.method == "GET":
-        pag = paginator.Paginator(check_staffs, 2)
+        pag = paginator.Paginator(check_staffs, 3)
         pages = pag.page(pages)
         return render(request, "staff_check.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
@@ -577,7 +591,7 @@ def salary_check(request, page):
         else:
             pages = int(page)
         if request.method == "GET":
-            pag = paginator.Paginator(salary, 2)  # 每页的数据量, 实例化分页对象
+            pag = paginator.Paginator(salary, 3)  # 每页的数据量, 实例化分页对象
             page_s = pag.page(pages)   # 该页的数据对象
         return render(request, "salary_check.html", {"page": page_s, "page_id": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
@@ -612,6 +626,16 @@ def salary_check(request, page):
             return JsonResponse({"is_filter": True})
         else:
             return JsonResponse({"is_filter": False})
+
+
+# TODO
+# 工资统计
+@login_required
+def salary_count(request):
+    if request.method == "GET":
+        return render(request, "salary_count.html")
+    elif request.method == "POST":
+        return render(request, "salary_count.html")
 
 
 # 在内存中开辟空间用以生成临时的图片
