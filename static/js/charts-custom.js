@@ -95,45 +95,7 @@ window.onload=function () {
     });
 
 
-    // ------------------------------------------------------- //
-    // Doughnut Chart
-    // ------------------------------------------------------ //
-    var DOUGHNUTCHARTEXMPLE  = $('#doughnutChartExample');
-    var pieChartExample = new Chart(DOUGHNUTCHARTEXMPLE, {
-        type: 'doughnut',
-        options: {
-            cutoutPercentage: 70,
-        },
-        data: {
-            labels: [
-                "A",
-                "B",
-                "C",
-                "D"
-            ],
-            datasets: [
-                {
-                    data: [250, 50, 100, 40],
-                    borderWidth: 0,
-                    backgroundColor: [
-                        '#3eb579',
-                        '#49cd8b',
-                        "#54e69d",
-                        "#71e9ad"
-                    ],
-                    hoverBackgroundColor: [
-                        '#3eb579',
-                        '#49cd8b',
-                        "#54e69d",
-                        "#71e9ad"
-                    ]
-                }]
-            }
-    });
 
-    var pieChartExample = {
-        responsive: true
-    };
 
 
     // ------------------------------------------------------- //

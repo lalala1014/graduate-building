@@ -59,9 +59,7 @@
             <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
                 <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="float: right">
-                <input id="style" type="text" name="search_name" onclick="stylea(this)" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;
-                <button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
+            <span style="float: right"><input id="search_name" type="text" style="background-color: transparent;border-top: 0;border-left: 0;border-right: 0;border-bottom-width:1px;border-bottom-color:gray;">&nbsp;&nbsp;<button onclick="search_filter()" style="border: 0px;background-color: transparent"><i class="icon-search"></i></button>
             </span>
             <br><br>
              <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
@@ -110,7 +108,7 @@
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">工资详情</h3>
+                      <h3 class="h4">工资信息</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -120,7 +118,6 @@
                                 <th>员工编号</th>
                                 <th>员工姓名</th>
                                 <th>参与项目</th>
-                                <th>考勤天数</th>
                                 <th>劳务公司</th>
                                 <th>工资结算</th>
                                 <th>是否结算</th>
@@ -136,7 +133,6 @@
                                     <td>{{ i.staff.staff_id }}</td>
                                     <td>{{ i.staff.staff_name }}</td>
                                     <td>{{ i.project.project_name }}</td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</td>
                                     <td>{{ i.staff.company.ser_name }}</td>
                                     <td>{{ i.money }}</td>
                                     <td>{{ i.is_get }}</td>
@@ -199,6 +195,23 @@
 
         </div>
   <script>
+  function search_filter() {
+            $.ajax({
+              url :"/building/salary/check/{{ page.number }}",
+              type:"POST",
+              data:{"filter":$("#search_name").val()},
+              dataType : "Json",
+              success:function (is_filter) {
+                  if(is_filter["is_filter"]==false)
+                  {
+                      alert("没有找到查询的结果！");
+                  }
+                  else {
+                      window.location.href="/building/salary/filter/"
+                  }
+              }
+          });
+        }
   function search_salary() {
       $.ajax({
               url :"/building/salary/check/{{ page_id }}",

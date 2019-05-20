@@ -35,7 +35,6 @@ def login_user(request):
         return render(request, "login.html")
 
 
-# TODO
 # 注册
 @csrf_exempt  # 跨站请求伪造
 def register(request):
@@ -139,11 +138,11 @@ def business_manage(request, page):
         return render(request, "business_manage.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         fil = request.POST.get("filter")      # 模糊查询的关键字
-        fil = "%"+fil+"%"
-        a = connection.cursor()
-        a.callproc(procname="select_business", params=[fil])
-        c = a.fetchall()
         if fil:
+            fil = "%" + fil + "%"
+            a = connection.cursor()
+            a.callproc(procname="select_business", params=[fil])
+            c = a.fetchall()
             if len(c) > 0:
                 list_b = []
                 for i in c:
@@ -205,7 +204,6 @@ def business_information(request, business_id):
         return render(request, "business_information.html")
 
 
-# TODO
 # 企业统计
 @login_required
 @csrf_exempt   # 跨站请求伪造
@@ -216,8 +214,18 @@ def business_count(request):
         bad = Business.objects.filter(assess="差").order_by("id")
         chengbao = Business.objects.filter(Qualification_class="总承包企业").order_by("id")
         unit = Business.objects.filter(Qualification_class="建设单位").order_by("id")
+        deactive = Business.objects.filter(is_business="已吊销").order_by("id")
+        business = Business.objects.filter(is_business="营业中").order_by("id")
+        nine_time = Business.objects.filter(approval_date__year=2019).order_by("id")
+        eight_time = Business.objects.filter(approval_date__year=2018).order_by("id")
+        sever_time = Business.objects.filter(approval_date__year=2017).order_by("id")
+        six_time = Business.objects.filter(approval_date__year=2016).order_by("id")
+        five_time = Business.objects.filter(approval_date__year=2015).order_by("id")
         return render(request, "business_count.html", {"user": request.user, "perfect": perfect, "good": good, "bad": bad,
-                                                       "chengbao": chengbao, "unit": unit})
+                                                       "chengbao": chengbao, "unit": unit, "deactive": deactive, "business": business,
+                                                       "nine_time": nine_time, "eight_time": eight_time, "seven_time": sever_time,
+                                                       "six_time": six_time, "five_time": five_time
+                                                       })
     elif request.method == "POST":
         return render(request, "business_count.html")
 
@@ -247,12 +255,11 @@ def business_assess(request, page):
         return render(request, "business_assess.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         fil = request.POST.get("filter")  # 模糊查询的关键字
-        fil = "%" + fil + "%"
-        a = connection.cursor()
-        a.callproc(procname="select_business", params=[fil])
-        c = a.fetchall()
-        print(c)
         if fil:
+            fil = "%" + fil + "%"
+            a = connection.cursor()
+            a.callproc(procname="select_business", params=[fil])
+            c = a.fetchall()
             if len(c) > 0:
                 list_b = []
                 for i in c:
@@ -333,11 +340,11 @@ def project_manage(request, page):
         return render(request, "project_manage.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         fil = request.POST.get("filter")  # 模糊查询的关键字
-        fil = "%" + fil + "%"
-        a = connection.cursor()
-        a.callproc(procname="select_project", params=[fil])
-        c = a.fetchall()
         if fil:
+            fil = "%" + fil + "%"
+            a = connection.cursor()
+            a.callproc(procname="select_project", params=[fil])
+            c = a.fetchall()
             if len(c) > 0:
                 list_b = []
                 for i in c:
@@ -405,7 +412,6 @@ def project_filter(request, page):
         return render(request, "project_filter.html")
 
 
-# TODO
 # 项目统计
 @login_required
 @csrf_exempt   # 跨站请求伪造
@@ -453,8 +459,7 @@ def project_count(request):
 # ********************************************** 劳 务 ******************************************************
 
 
-# TODO
-# 劳务人员考勤(搜索未写完)
+# 劳务人员考勤
 @login_required
 @csrf_exempt  # 跨站请求伪造
 def staff_check(request, page):
@@ -469,11 +474,11 @@ def staff_check(request, page):
         return render(request, "staff_check.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
         fil = request.POST.get("filter")  # 模糊查询的关键字
-        fil = "%" + fil + "%"
-        a = connection.cursor()
-        a.callproc(procname="select_project", params=[fil])
-        c = a.fetchall()
         if fil:
+            fil = "%" + fil + "%"
+            a = connection.cursor()
+            a.callproc(procname="select_check", params=[fil])
+            c = a.fetchall()
             if len(c) > 0:
                 list_b = []
                 for i in c:
@@ -493,18 +498,18 @@ def staff_check(request, page):
             project_company = request.POST.get("project_company")
             search_dict = dict()  # 定义一个字典保存关键字
             if staff_name:
-                staff = Staffs.objects.filter(staff_name=staff_name)
+                search_dict["staff__staff_name"] = staff_name
             if staff_id:
-                search_dict["staff"] = Staffs.objects.filter(staff_id=staff_id)
+                search_dict["staff__staff_id"] = staff_id
             if staff_project:
-                search_dict["project"] = Project.objects.filter(project_name=staff_project)
+                search_dict["project__project_name"] = staff_project
             if staff_company:
-                search_dict["staff"] = Staffs.objects.filter(staff_company=staff_company)
+                search_dict["staff__company__ser_name"] = staff_company
             if project_unit:
-                search_dict["project"] = Project.objects.filter(project_unit=project_unit)
+                search_dict["project__project_unit__business_name"] = project_unit
             if project_company:
-                search_dict["project"] = Project.objects.filter(project_company=project_company)
-            search = Project.objects.filter(**search_dict).order_by("id")  # 使用字典匹配查询
+                search_dict["project__project_company__business_name"] = project_company
+            search = Check.objects.filter(**search_dict).order_by("id")  # 使用字典匹配查询
             list_a = []
             for i in search:
                 list_a.append(i.id)
@@ -515,7 +520,6 @@ def staff_check(request, page):
                 return JsonResponse({"is_filter": False})
 
 
-# TODO
 # 考勤查询显示
 @login_required
 @csrf_exempt
@@ -528,59 +532,12 @@ def staff_check_filter(request, page):
     if request.method == "GET":
         pag = paginator.Paginator(check_staffs, 2)
         pages = pag.page(pages)
-        return render(request, "staff_check.html", {"page": pages, "pag": pag, "user": request.user})
+        return render(request, "staff_check_filter.html", {"page": pages, "pag": pag, "user": request.user})
     elif request.method == "POST":
-        fil = request.POST.get("filter")  # 模糊查询的关键字
-        print(fil)
-        fil = "%" + fil + "%"
-        a = connection.cursor()
-        a.callproc(procname="select_project", params=[fil])
-        c = a.fetchall()
-        print(c)
-        if fil:
-            if len(c) > 0:
-                list_b = []
-                for i in c:
-                    list_b.append(i[0])
-                a.close()
-                request.session["search_check"] = list_b
-                return JsonResponse({"is_filter": True})
-            else:
-                a.close()
-                return JsonResponse({"is_filter": False})
-        else:
-            staff_name = request.POST.get("staff_name")
-            staff_id = request.POST.get("staff_id")
-            staff_project = request.POST.get("staff_project")
-            staff_company = request.POST.get("staff_company")
-            project_unit = request.POST.get("project_unit")
-            project_company = request.POST.get("project_company")
-            search_dict = dict()  # 定义一个字典保存关键字
-            if staff_name:
-                staff = Staffs.objects.filter(staff_name=staff_name)
-            if staff_id:
-                search_dict["staff"] = Staffs.objects.filter(staff_id=staff_id)
-            if staff_project:
-                search_dict["project"] = Project.objects.filter(project_name=staff_project)
-            if staff_company:
-                search_dict["staff"] = Staffs.objects.filter(staff_company=staff_company)
-            if project_unit:
-                search_dict["project"] = Project.objects.filter(project_unit=project_unit)
-            if project_company:
-                search_dict["project"] = Project.objects.filter(project_company=project_company)
-            search = Project.objects.filter(**search_dict).order_by("id")  # 使用字典匹配查询
-            list_a = []
-            for i in search:
-                list_a.append(i.id)
-            request.session["search_check"] = list_a
-            if search.count() > 0:
-                return JsonResponse({"is_filter": True})
-            else:
-                return JsonResponse({"is_filter": False})
+        return render(request, "staff_check_filter.html")
 
 
-# TODO
-# 工资核对(搜索未写完)
+# 工资核对
 @login_required
 @csrf_exempt  # 跨站请求伪造
 def salary_check(request, page):
@@ -601,39 +558,93 @@ def salary_check(request, page):
             check_peo.is_manager = "已核对"
             check_peo.save()
             return JsonResponse({"is_check": "已核对"})
-        staff_name = request.POST.get("staff_name")
-        staff_id = request.POST.get("staff_id")
-        staff_project = request.POST.get("staff_project")
-        staff_company = request.POST.get("staff_company")
-        is_manager = request.POST.get("is_manager")
-        search_dict = dict()  # 定义一个字典保存关键字
-        if staff_name:
-            search_dict["staff_name"] = Staffs.objects.filter(staff_name=staff_name)
-        if staff_id:
-            search_dict["staff_id"] = Staffs.objects.get(staff_id=staff_id)
-        if staff_project:
-            search_dict["project"] = Project.objects.get(project_name=staff_project)
-        if staff_company:
-            search_dict["staff"] = Staffs.objects.filter(staff_company=staff_company)
-        if is_manager:
-            search_dict["is_manager"] = Salary.objects.filter(is_manager=is_manager)
-        search = Project.objects.filter(**search_dict).order_by("id")  # 使用字典匹配查询
-        list_a = []
-        for i in search:
-            list_a.append(i.id)
-        request.session["search_staff"] = list_a
-        if search.count() > 0:
-            return JsonResponse({"is_filter": True})
+        fil = request.POST.get("filter")  # 模糊查询的关键字
+        if fil:
+            fil = "%" + fil + "%"
+            a = connection.cursor()
+            a.callproc(procname="select_salary", params=[fil])
+            c = a.fetchall()
+            if len(c) > 0:
+                list_b = []
+                for i in c:
+                    list_b.append(i[0])
+                a.close()
+                request.session["search_salary"] = list_b
+                return JsonResponse({"is_filter": True})
+            else:
+                a.close()
+                return JsonResponse({"is_filter": False})
         else:
-            return JsonResponse({"is_filter": False})
+            staff_name = request.POST.get("staff_name")
+            staff_id = request.POST.get("staff_id")
+            staff_project = request.POST.get("staff_project")
+            staff_company = request.POST.get("staff_company")   # 所属劳务公司
+            is_manager = request.POST.get("is_manager")
+            search_dict = dict()  # 定义一个字典保存关键字
+            if staff_name:
+                search_dict["staff__staff_name"] = staff_name
+            if staff_id:
+                search_dict["staff__staff_id"] = staff_id
+            if staff_project:
+                search_dict["project__project_name"] = staff_project
+            if staff_company:
+                search_dict["staff__company__ser_name"] = staff_company
+            if is_manager:
+                search_dict["is_manager"] = is_manager
+            search = Salary.objects.filter(**search_dict).order_by("id")
+            list_a = []
+            for i in search:
+                list_a.append(i.id)
+            request.session["search_salary"] = list_a
+            if search.count() > 0:
+                return JsonResponse({"is_filter": True})
+            else:
+                return JsonResponse({"is_filter": False})
 
 
-# TODO
+# 工资查询结果
+@login_required
+def salary_filter(request, page):
+    if page == "":
+        pages = 1
+    else:
+        pages = int(page)
+    search_salary = Salary.objects.filter(id__in=request.session["search_salary"]).order_by("id")
+    if request.method == "GET":
+        pag = paginator.Paginator(search_salary, 1)
+        pages = pag.page(pages)
+        return render(request, "salary_filter.html", {"page": pages, "pag": pag, "user": request.user})
+    elif request.method == "POST":
+        return render(request, "salary_filter.html")
+
+
 # 工资统计
 @login_required
 def salary_count(request):
     if request.method == "GET":
-        return render(request, "salary_count.html")
+        yijiesuan = Salary.objects.filter(is_get="已结算").order_by("id")
+        weijiesuan = Salary.objects.filter(is_get="未结算").order_by("id")
+        is_staff = Salary.objects.filter(is_staff="已核对", is_company="未核对", is_manager="未核对", is_unit="未核对").order_by(
+            "id")
+        is_unit = Salary.objects.filter(is_company="未核对", is_manager="未核对", is_unit="已核对").order_by("id")
+        is_company = Salary.objects.filter(is_company="已核对", is_manager="未核对").order_by("id")
+        is_manager = Salary.objects.filter(is_manager="已核对").order_by("id")
+        is_check = Salary.objects.filter(is_staff="未核对").order_by("id")
+        money = Salary.objects.all()
+        much = 0
+        middle = 0
+        less = 0
+        for i in money:
+            if i.money > 10000:
+                much += 1
+            elif i.money > 5000:
+                middle += 1
+            else:
+                less += 1
+        return render(request, "salary_count.html", {"yijiesuan": yijiesuan, "weijiesuan": weijiesuan, "much": much,
+                                                     "middle": middle, "less": less,
+                                                     "is_staff": is_staff, "is_unit": is_unit, "is_company": is_company,
+                                                     "is_manager": is_manager, "is_check": is_check})
     elif request.method == "POST":
         return render(request, "salary_count.html")
 

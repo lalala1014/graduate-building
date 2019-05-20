@@ -78,7 +78,29 @@
 
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">企业营业状态</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="BusinessChartExample"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">企业近五年统计</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="YearChartExample"></canvas>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
             </div>
           </section>
 
@@ -94,7 +116,7 @@
             // ------------------------------------------------------ //
             var PIECHARTEXMPLE    = $('#pieChartExample');
             var pieChartExample = new Chart(PIECHARTEXMPLE, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: [
                         "优",
@@ -152,5 +174,89 @@
             var classChartExample = {
                 responsive: true
             };
+            // ------------------------------------------------------- //
+            // Pie Chart
+            // ------------------------------------------------------ //
+            var BUSINESSCHARTEXAMPLE    = $('#BusinessChartExample');
+            var BusinessChartExample = new Chart(BUSINESSCHARTEXAMPLE, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        "营业中",
+                        "已吊销",
+                    ],
+                    datasets: [
+                        {
+                            data: [{{ business.count }}, {{ deactive.count }}],
+                            borderWidth: 0,
+                            backgroundColor: [
+                                '#2585a6',
+                                "#2468a2",
+                            ],
+                            hoverBackgroundColor: [
+                               '#2585a6',
+                                "#2468a2",
+                            ]
+                        }]
+                }
+            });
+
+            var classChartExample = {
+                responsive: true
+            };
+            // ------------------------------------------------------- //
+        // // Bar Chart
+        // // ------------------------------------------------------ //
+        var YEARCHARTEXMPLE    = $('#YearChartExample');
+        var YearChartExample = new Chart(YEARCHARTEXMPLE, {
+            type: 'bar',
+            options: {
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#eee'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#eee'
+                        }
+                    }]
+                },
+            },
+            data: {
+                labels: ["2019年", "2018年", "2017年","2016年","2015年"],
+                datasets: [
+                    {
+                        label: "项目数",
+                        backgroundColor: [
+                            '#2570a1',
+                            '#596032',
+                            '#8e3e1f',
+                            '#281f1d',
+                            '#afdfe4'
+                        ],
+                        hoverBackgroundColor: [
+                           '#2570a1',
+                            '#596032',
+                            '#8e3e1f',
+                            '#281f1d',
+                            '#afdfe4'
+                        ],
+                        borderColor: [
+                           '#2570a1',
+                            '#596032',
+                            '#8e3e1f',
+                            '#281f1d',
+                            '#afdfe4'
+                        ],
+                        borderWidth: 1,
+                        data: [{{ nine_time.count }}, {{ eight_time.count }}, {{ seven_time.count }},{{ six_time.count }},{{ five_time.count }}],
+                    }
+                ]
+            }
+        });
         }</script>
  {% endblock %}

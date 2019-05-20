@@ -59,7 +59,7 @@
                       <div class="col-lg-6">
                           <div class="card">
                               <div class="card-header d-flex align-items-center">
-                                  <h3 class="h4">项目进度统计</h3>
+                                  <h3 class="h4">工资结算统计</h3>
                               </div>
                               <div class="card-body">
                                   <canvas id="pieChartExample"></canvas>
@@ -69,10 +69,10 @@
                       <div class="col-lg-6">
                           <div class="card">
                               <div class="card-header d-flex align-items-center">
-                                  <h3 class="h4">项目面积统计</h3>
+                                  <h3 class="h4">工资金额统计</h3>
                               </div>
                               <div class="card-body">
-                                  <canvas id="AreaChartExample"></canvas>
+                                  <canvas id="SalaryChartExample"></canvas>
                               </div>
                           </div>
                       </div>
@@ -85,7 +85,7 @@
                                   <h3 class="h4">项目区域统计</h3>
                               </div>
                               <div class="card-body">
-                                  <canvas id="barChartExample"></canvas>
+                                  <canvas id="doughnutChartExample"></canvas>
                               </div>
                           </div>
                       </div>
@@ -108,26 +108,20 @@
                 type: 'pie',
                 data: {
                     labels: [
-                        "审批未开工",
-                        "在建",
-                        "停工",
-                        "竣工"
+                        "已结算",
+                        "未结算",
                     ],
                     datasets: [
                         {
-                            data: [{{ no_work.count }}, {{ working.count }}, {{ stop_work.count }},{{ finish_work.count }}],
+                            data: [{{ yijiesuan.count }}, {{ weijiesuan.count }}],
                             borderWidth: 0,
                             backgroundColor: [
-                                '#444693',
-                                "#2b4490",
-                                "#2a5caa",
-                                '#426ab3'
+                                '#c77eb5',
+                                "#ea66a6",
                             ],
                             hoverBackgroundColor: [
-                                '#444693',
-                                "#2b4490",
-                                "#2a5caa",
-                                '#426ab3'
+                                '#c77eb5',
+                                "#ea66a6",
                             ]
                         }]
                 }
@@ -136,117 +130,81 @@
             var pieChartExample = {
                 responsive: true
             };
-            // ------------------------------------------------------- //
+             // ------------------------------------------------------- //
             // Pie Chart
             // ------------------------------------------------------ //
-            var AREACHARTEXMPLE    = $('#AreaChartExample');
-            var AreaChartExample = new Chart(AREACHARTEXMPLE, {
+            var SALARYCHARTEXMPLE    = $('#SalaryChartExample');
+            var SalaryChartExample = new Chart(SALARYCHARTEXMPLE, {
                 type: 'pie',
                 data: {
                     labels: [
-                        "项目面积大于10000m²",
-                        "项目面积大于5000m²&小于10000m²",
-                        "项目面积小于5000m²"
+                        "工资大于10000元",
+                        "工资大于5000元且小于10000元",
+                        "工资小于5000元"
                     ],
                     datasets: [
                         {
-                            data: [{{ big_count }}, {{ middle_count }}, {{ small_count }}],
+                            data: [{{ much }}, {{ middle }},{{ less }}],
                             borderWidth: 0,
                             backgroundColor: [
-                                '#ef4136',
-                                "#b4534b",
-                                "#f3715c",
+                                '#7fb80e',
+                                "#bed742",
+                                "#5c7a29"
                             ],
                             hoverBackgroundColor: [
-                                '#ef4136',
-                                "#b4534b",
-                                "#f3715c",
+                                '#7fb80e',
+                                "#bed742",
+                                "#5c7a29"
                             ]
                         }]
                 }
             });
 
-            var AreaChartExample = {
+            var SalaryChartExample = {
                 responsive: true
             };
-             // ------------------------------------------------------- //
-        // // Bar Chart
-        // // ------------------------------------------------------ //
-        var BARCHARTEXMPLE    = $('#barChartExample');
-        var barChartExample = new Chart(BARCHARTEXMPLE, {
-            type: 'bar',
-            options: {
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        gridLines: {
-                            color: '#eee'
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        gridLines: {
-                            color: '#eee'
-                        }
-                    }]
+            // ------------------------------------------------------- //
+            // Doughnut Chart
+            // ------------------------------------------------------ //
+            var DOUGHNUTCHARTEXMPLE  = $('#doughnutChartExample');
+            var pieChartExample = new Chart(DOUGHNUTCHARTEXMPLE, {
+                type: 'doughnut',
+                options: {
+                    cutoutPercentage: 70,
                 },
-            },
-            data: {
-                labels: ["金水区", "二七区", "中原区","新郑市","惠济区","管城回族区","上街区","登封市","新密市","巩义市","中牟县","高新区","荥阳市"],
-                datasets: [
-                    {
-                        label: "项目数",
-                        backgroundColor: [
-                            '#1d953f',
-                            '#77ac98',
-                            '#007d65',
-                            '#84bf96',
-                            '#45b97c',
-                            '#225a1f',
-                            '#367459',
-                            '#007947',
-                            '#40835e',
-                            '#2b6447',
-                            '#005831',
-                            '#006c54',
-                            '#375830'
-                        ],
-                        hoverBackgroundColor: [
-                            '#1d953f',
-                            '#77ac98',
-                            '#007d65',
-                            '#84bf96',
-                            '#45b97c',
-                            '#225a1f',
-                            '#367459',
-                            '#007947',
-                            '#40835e',
-                            '#2b6447',
-                            '#005831',
-                            '#006c54',
-                            '#375830'
-                        ],
-                        borderColor: [
-                            '#1d953f',
-                            '#77ac98',
-                            '#007d65',
-                            '#84bf96',
-                            '#45b97c',
-                            '#225a1f',
-                            '#367459',
-                            '#007947',
-                            '#40835e',
-                            '#2b6447',
-                            '#005831',
-                            '#006c54',
-                            '#375830'
-                        ],
-                        borderWidth: 1,
-                        data: [{{ jinshui.count }}, {{ erqi.count }}, {{ zhongyuan.count }},{{ xinzheng.count }},{{ huiji.count }},{{ guancheng.count }},{{ shangjie.count }},{{ dengfeng.count }},{{ gongyi.count }},{{ zhongmou.count }},{{ gaoxin.count }},{{ xingyang.count }}],
-                    }
-                ]
-            }
-        });
+                data: {
+                    labels: [
+                        "劳务人员核对",
+                        "建筑单位核对",
+                        "建筑企业核对",
+                        "市建委核对",
+                        "都未核对"
+                    ],
+                    datasets: [
+                        {
+                            data: [{{ is_staff.count }}, {{ is_unit.count}},{{ is_company.count }},{{ is_manager.count }},{{ is_check.count }}],
+                            borderWidth: 0,
+                            backgroundColor: [
+                                '#367459',
+                                '#63434f',
+                                "#d5c59f",
+                                "#8a2e3b",
+                                "#008792"
+                            ],
+                            hoverBackgroundColor: [
+                                '#367459',
+                                '#63434f',
+                                "#d5c59f",
+                                "#8a2e3b",
+                                "#008792"
+                            ]
+                        }]
+                }
+            });
+
+            var pieChartExample = {
+                responsive: true
+            };
         }
     </script>
  {% endblock %}

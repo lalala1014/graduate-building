@@ -21,16 +21,16 @@
                     </ul>
                 </li>
                 <li><a href="#projectdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>项目管理 </a>
-                    <ul id="projectdropdownDropdown" class="collapse list-unstyled ">
+                    <ul id="projectdropdownDropdown" class="collapse list-unstyled">
                         <li><a href="/building/project/manager/">项目信息</a></li>
                         <li><a href="/building/project/count/">项目统计</a></li>
                     </ul>
                 </li>
                 <li><a href="#salarydropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-padnote"></i>劳务管理 </a>
                     <ul id="salarydropdownDropdown" class="collapse list-unstyled show">
-                        <li class="active"><a href="/building/staff/check/">劳务考勤</a></li>
+                        <li><a href="/building/staff/check/">劳务考勤</a></li>
                         <li><a href="/building/salary/count/">工资统计</a></li>
-                        <li><a href="/building/salary/check/">工资核对</a></li>
+                        <li class="active"><a href="/building/salary/check/">工资核对</a></li>
                     </ul>
                 </li>
           </ul><span class="heading">附加功能</span>
@@ -50,49 +50,83 @@
           <div class="breadcrumb-holder container-fluid">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/building/index/">首页</a></li>
-              <li class="breadcrumb-item active">劳务员工考勤信息            </li>
+              <li class="breadcrumb-item active">工资查询结果            </li>
             </ul>
           </div>
           <section class="tables">
             <div class="container-fluid">
                 <button type="button"  class="btn btn-info" onclick="print()">打印 </button>
-                <button type="button"  class="btn btn-danger" onclick="load()">下载 </button>
-            <br><br>
+                <button type="button"  class="btn btn-danger" onclick="load()">下载 </button><br><br>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">考勤信息</h3>
+                      <h3 class="h4">工资信息</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table table-striped" id="staff_check">
+                        <table class="table table-striped" id="salary">
                           <thead>
-                            <tr>
+                            <tr style="font-size: 13px">
                                 <th>员工编号</th>
-                                <th>员工名称</th>
-                                <th>所属劳务公司</th>
+                                <th>员工姓名</th>
                                 <th>参与项目</th>
-                                <th>项目建设单位</th>
-                                <th>项目建设企业</th>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考勤时间</th>
+                                <th>劳务公司</th>
+                                <th>工资结算</th>
+                                <th>是否结算</th>
+                                <th>劳务人员核对</th>
+                                <th>建筑企业核对</th>
+                                <th>建筑单位核对</th>
+                                <th>市建委核对</th>
                             </tr>
                           </thead>
                             {% for i in page %}
                                 <tbody>
                                 <tr>
                                     <td>{{ i.staff.staff_id }}</td>
-                                    <td class="text-nowrap" ><a href="/building/staff/information/{{ i.staff.staff_id }}/">{{ i.staff.staff_name }}</a></td>
+                                    <td>{{ i.staff.staff_name }}</td>
+                                    <td>{{ i.project.project_name }}</td>
                                     <td>{{ i.staff.company.ser_name }}</td>
-                                    <td>&nbsp;{{ i.project.project_name }}</td>
-                                    <td>&nbsp;&nbsp;{{ i.project.project_unit.business_name }}</td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.project.project_company.business_name }}</td>
-                                    <td>{{ i.time }}</td>
+                                    <td>{{ i.money }}</td>
+                                    <td>{{ i.is_get }}</td>
+                                    <td>{{ i.is_staff }}</td>
+                                    <td>{{ i.is_company }}</td>
+                                    <td>{{ i.is_unit }}</td>
+                                <td id="check_{{ i.id }}">
+                                    {% if i.is_manager != "已核对" and i.is_unit == "已核对"%}
+                                    <button  class="btn btn-success btn-sm" data-toggle="modal" data-target="#is_{{ i.id }}">确认核对</button>
+                                        <div id="is_{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                                            <div role="document" class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 id="exampleModalLabel" class="modal-title">核对工资信息</h4>
+                                                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 20px">确认核对该员工的工资发放信息？</label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn btn-secondary">关闭</button>
+                                                        <button type="button" class="btn btn-primary" onclick="btn({{ i.id }})" data-dismiss="modal">确认</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elif i.is_manager != "已核对" and i.is_unit == "未核对"%}
+                                        <button  class="btn btn-dark btn-sm" disabled>确认核对</button>
+                                    {% else %}
+                                    {{ i.is_manager }}
+                                    {% endif %}
+                                </td>
                                 </tr>
                                 </tbody>
                             {% endfor %}
                         </table>
-                       <!--分页导航栏-->
+                          <!--分页导航栏-->
                           <div align="center">
                               共<span id="totalNumber" style="color: dodgerblue">{{ pag.count }}</span>条   
                               当前第<span id="currentPage" style="color: black">{{ page.number }}</span>/<span id="totalPage" style="color: black">{{ pag.num_pages }}</span>页
@@ -102,6 +136,7 @@
                               跳至&nbsp;<input id="pageNumber" type="number" min="1" max="100" style="width: 78px; text-align: center">&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <button id="goPage" type="button" class="btn btn-primary" onclick="skip()">GO</button>
                           </div>
+
                       </div>
                     </div>
                   </div>
@@ -110,83 +145,48 @@
               </div>
             <div class="form-group row">
                     <div class="col-sm-9">
-                        <a class="btn btn-danger" href="/building/staff/check/">返回上一步</a>
+                        <a class="btn btn-danger" href="/building/salary/check/">返回上一步</a>
                     </div>
                 </div>
             </div>
-
           </section>
 
         </div>
+
   <script>
-      function search_filter() {
-          $.ajax({
-              url :"/building/staff/check/filter/{{ page.number }}",
-              type:"POST",
-              data:{"filter":$("#search_name").val()},
-              dataType : "Json",
-              success:function (is_filter) {
-                  if(is_filter["is_filter"]==false)
-                  {
-                      alert("没有找到查询的结果！");
-                  }
-                  else {
-                      window.location.href="/building/staff/check/filter/"
-                  }
-              }
-          });
-      }
-      function search_business(){
-          $.ajax({
-              url :"/building/staff/check/filter/{{ page.number }}",
-              type:"POST",
-              data:{"staff_name":$("#staff_name").val(),"staff_id":$("#staff_id").val(),"staff_project":$("#staff_project").val(), "staff_company":$("#staff_company").val(),"project_unit":$("#project_unit").val(), "project_company":$("#project_company").val()},
-              dataType : "Json",
-              success:function (is_filter) {
-                  if(is_filter["is_filter"]==false)
-                  {
-                      alert("没有找到查询的结果！");
-                  }
-                  else {
-                      window.location.href="/building/staff/check/filter/"
-                  }
-              }
-          });
-      }
-    <!-- 跳转到上一页面-->
       function pre_page() {
           if(({{ page.number }})>1)
           {
-              window.location.href="/building/staff/check/filter/{{ page.number|add:-1 }}"
+              window.location.href="/building/salary/filter/{{ page.number|add:-1 }}"
           }
       }
       <!-- 跳转到下一页面-->
       function next_page() {
-          if(({{ page.number }})<({{ pag.num_pages }}))
+          if(({{ page.number}})<({{ pag.num_pages }}))
           {
-              window.location.href="/building/staff/check/filter/{{ page.number|add:1 }}"
+              window.location.href="/building/salary/filter/{{ page.number|add:1 }}"
           }
       }
      <!--跳转到指定页面-->
      function skip() {
-          pageNumber = $("#pageNumber").val();
-          pageNumbers = parseInt(pageNumber);
-          if(pageNumbers>0)
-          {
-              if(pageNumbers<={{ pag.num_pages }})
-              {
-                  window.location.href=("/building/staff/check/filter/"+pageNumber)
-              }
-              else {
-                  window.location.href="/building/staff/check/filter/"
-              }
-          }
-          else {
-                  window.location.href="/building/staff/check/filter/"
-              }
+         pageNumber = $("#pageNumber").val();
+         pageNumbers = parseInt(pageNumber);
+         if(pageNumbers>0)
+         {
+             if(pageNumbers<={{ pag.num_pages }})
+             {
+                 window.location.href=("/building/salary/manager/"+pageNumber)
+             }
+             else {
+                 window.location.href="/building/salary/manager/"
+             }
+         }
+         else {
+             window.location.href="/building/salary/manager/"
+         }
       }
     <!-- 导出成excel-->
-    var tableId = document.getElementById("staff_check");
+    var tableId = document.getElementById("salary");
     function load() {
         methodtable2excel(tableId);
     }
@@ -267,4 +267,4 @@
         }
     })();
 </script>
- {% endblock %}
+{% endblock %}
