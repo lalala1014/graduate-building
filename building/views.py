@@ -199,7 +199,18 @@ def business_filter(request, page):
 def business_information(request, business_id):
     if request.method == "GET":
         business = Business.objects.get(business_id=business_id)
-        return render(request, "business_information.html", {"business": business, "user": request.user})
+        if business.Qualification_class == "总承包企业":
+            shenpi = Project.objects.filter(project_company_id=business.id, project_plan="审批未开工").order_by("id")
+            zaijian = Project.objects.filter(project_company_id=business.id, project_plan="在建").order_by("id")
+            tinggong = Project.objects.filter(project_company_id=business.id, project_plan="停工").order_by("id")
+            jungong = Project.objects.filter(project_company_id=business.id, project_plan="竣工").order_by("id")
+        elif business.Qualification_class == "建筑单位":
+            shenpi = Project.objects.filter(project_unit_id=business.id, project_plan="审批未开工").order_by("id")
+            zaijian = Project.objects.filter(project_unit_id=business.id, project_plan="在建").order_by("id")
+            tinggong = Project.objects.filter(project_unit_id=business.id, project_plan="停工").order_by("id")
+            jungong = Project.objects.filter(project_unit_id=business.id, project_plan="竣工").order_by("id")
+        return render(request, "business_information.html", {"business": business, "user": request.user,
+                                                             "shenpi": shenpi, "zaijian": zaijian, "tinggong": tinggong, "jungong": jungong})
     elif request.method == "POST":
         return render(request, "business_information.html")
 
