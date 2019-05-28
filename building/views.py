@@ -660,6 +660,18 @@ def salary_count(request):
         return render(request, "salary_count.html")
 
 
+# 员工信息
+@login_required
+def staff_information(request, staff_id):
+    if request.method == "GET":
+        print("123")
+        staff = Staffs.objects.get(staff_id=staff_id)
+        print(staff)
+        return render(request, "staff_information.html", {"staff": staff, "user": request.user})
+    elif request.method == "POST":
+        return render(request, "staff_information.html")
+
+
 # 在内存中开辟空间用以生成临时的图片
 def create_code_img(request):
     f = BytesIO()
